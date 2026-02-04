@@ -4,7 +4,7 @@
 
 // Definizioni locali per gestione Power
 #define PWR_CR        *(volatile uint32_t*)0x40007000
-#define RCC_APB1ENR_PWREN (1UL << 28) // Bit 28 per abilitare clock Power
+#define RCC_APB1ENR_PWREN (1 << 28) // Bit 28 per abilitare clock Power
 
 char temp_string[50];
 
@@ -12,6 +12,11 @@ void init(void)
 
 {
     // --- 1. CONFIGURAZIONE BASE (16 MHz HSI) ---
+
+    // Abilitazione FPU
+
+    //CPACR |= ((3 << 10*2)|(3 << 11*2)); SUPERFLUA
+
     // Abilitazione Clock Periferiche essenziali
 
     RCC_AHB1ENR |= 0x00000001; // GPIOA
@@ -23,7 +28,7 @@ void init(void)
 
     // [CRITICO] Configura SUBITO il Voltage Regulator a Scale 1 (High Performance)
 
-    PWR_CR |= (3UL << 14); 
+    PWR_CR |= (3 << 14); 
 
     // Configurazione GPIO PA9 (TX) e PA10 (RX)
 
