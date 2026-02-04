@@ -1,0 +1,126 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.32.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Alexander Foxil , HP Inc., LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.32.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.14.1
+Assembler:       Armasm.exe V6.14.1
+Linker/Locator:  ArmLink.exe V6.14.1
+Library Manager: ArmAr.exe V6.14.1
+Hex Converter:   FromElf.exe V6.14.1
+CPU DLL:         SARMCM3.DLL V5.32.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
+Dialog DLL:      TCM.DLL V1.46.0.0
+ 
+<h2>Project:</h2>
+C:\Users\alexf\Desktop\alessio gay fr fr fr\alessio gay fr fr fr\STM32_ProjectMenu Sniffer\9_Led_B_Usart2.uvprojx
+Project File Date:  12/11/2025
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.14.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'Target 1'
+assembling startup_stm32f413xx.s...
+9_Led_Blinking_USART2_TX_RX.c(4): warning: non-portable path to file '"STM32F413XX.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include "STM32F413xx.h" // Header corretto
+         ^~~~~~~~~~~~~~~
+         "STM32F413XX.h"
+9_Led_Blinking_USART2_TX_RX.c(4): warning: In file included from...
+./STM32F413xx.h(69): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+9_Led_Blinking_USART2_TX_RX.c(5): warning: In file included from...
+./functions.h(21): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+9_Led_Blinking_USART2_TX_RX.c(8): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
+uint32_t current_cpu_freq = 16;
+         ^
+9_Led_Blinking_USART2_TX_RX.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t current_cpu_freq = 16;
+^
+9_Led_Blinking_USART2_TX_RX.c(27): warning: while loop has empty body [-Wempty-body]
+                        while(!(USART1_SR & 0x00000020)); // Attesa RX
+                                                        ^
+9_Led_Blinking_USART2_TX_RX.c(27): note: put the semicolon on a separate line to silence this warning
+9_Led_Blinking_USART2_TX_RX.c(67): warning: while loop has empty body [-Wempty-body]
+ while(!(USART1_SR & 0x00000020));
+                                 ^
+9_Led_Blinking_USART2_TX_RX.c(67): note: put the semicolon on a separate line to silence this warning
+9_Led_Blinking_USART2_TX_RX.c(9): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
+char menu_buffer[100];
+     ^
+9_Led_Blinking_USART2_TX_RX.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+char menu_buffer[100];
+^
+7 warnings generated.
+compiling 9_Led_Blinking_USART2_TX_RX.c...
+functions.c(1): warning: non-portable path to file '"STM32F413XX.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include "STM32F413xx.h" 
+         ^~~~~~~~~~~~~~~
+         "STM32F413XX.h"
+functions.c(1): warning: In file included from...
+./STM32F413xx.h(69): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+functions.c(2): warning: In file included from...
+./functions.h(21): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+functions.c(42): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    GPIOA_AFRH  &= ~0x00000FF0; 
+                ~~ ^~~~~~~~~~~
+functions.c(120): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    RCC_CFGR &= ~0x00000003; 
+             ~~ ^~~~~~~~~~~
+functions.c(83): warning: no previous prototype for function 'set_clock_100MHz' [-Wmissing-prototypes]
+void set_clock_100MHz(void) // Mantengo il nome per compatibilit√† col main, ma va a 80MHz
+     ^
+functions.c(83): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void set_clock_100MHz(void) // Mantengo il nome per compatibilit√† col main, ma va a 80MHz
+^
+static 
+functions.c(159): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    RCC_CFGR &= ~0x00000003; 
+             ~~ ^~~~~~~~~~~
+functions.c(165): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    RCC_CR &= ~0x01000000; 
+           ~~ ^~~~~~~~~~~
+functions.c(173): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    RCC_CFGR &= ~0x00001C00; 
+             ~~ ^~~~~~~~~~~
+functions.c(189): warning: unused parameter 'baud_div' [-Wunused-parameter]
+void update_USART1_baudrate(uint32_t baud_div) { }
+                                     ^
+functions.c(201): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+11 warnings generated.
+compiling functions.c...
+linking...
+Program Size: Code=4860 RO-data=1148 RW-data=4 ZI-data=1132  
+FromELF: creating hex file...
+".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 18 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
+                Keil.STM32F4xx_DFP.2.15.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\alexf\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:00
+</pre>
+</body>
+</html>
