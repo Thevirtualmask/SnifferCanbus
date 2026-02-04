@@ -23,16 +23,16 @@ void init(void)
 
     // Abilita PWR (Power) e USART2 (opzionale)
 
-    RCC_APB1ENR |= 0x00020000 | RCC_APB1ENR_PWREN; 
+    RCC_APB1ENR |= 0x00020000 | RCC_APB1ENR_PWREN; //Questo statement abilita il clock per due moduli sul bus APB1
     RCC_APB2ENR |= 0x00008010; // USART1 (Bit 4)
 
-    // [CRITICO] Configura SUBITO il Voltage Regulator a Scale 1 (High Performance)
+    //configura il voltage regulator a Scale 1 (High Performance)
 
     PWR_CR |= (3 << 14); 
 
     // Configurazione GPIO PA9 (TX) e PA10 (RX)
 
-    GPIOA_MODER &= ~0x003C0000U; 
+    GPIOA_MODER &= ~0x003C0000U;  
     GPIOA_MODER |=  0x00280000U; // Alternate Function
     GPIOA_PUPDR &= ~0x003C0000U; 
     GPIOA_PUPDR |=  0x00140000U; // Pull-Up

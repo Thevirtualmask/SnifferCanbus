@@ -1,15 +1,15 @@
 Dependencies for Project '9_Led_B_Usart2', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 6140001::V6.14.1::ARMCLANG
-F (.\9_Led_Blinking_USART2_TX_RX.c)(0x698374DC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -IC:/Users/alexf/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.15.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-IC:/Keil_v5/ARM/CMSIS/Include-D__UVISION_VERSION="532" -DSTM32F413xx-o ./objects/9_led_blinking_usart2_tx_rx.o -MD)
+F (.\9_Led_Blinking_USART2_TX_RX.c)(0x69838F16)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -IC:/Users/alexf/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.15.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-IC:/Keil_v5/ARM/CMSIS/Include-D__UVISION_VERSION="532" -DSTM32F413xx-o ./objects/9_led_blinking_usart2_tx_rx.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F5174FE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5F5174FE)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F5174FE)
-I (STM32F413xx.h)(0x693AF994)
-I (functions.h)(0x693AF994)
-F (.\functions.c)(0x698376C0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -IC:/Users/alexf/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.15.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-IC:/Keil_v5/ARM/CMSIS/Include-D__UVISION_VERSION="532" -DSTM32F413xx-o ./objects/functions.o -MD)
-I (STM32F413xx.h)(0x693AF994)
+I (STM32F413xx.h)(0x6983A06F)
+I (functions.h)(0x6983A0F0)
+F (.\functions.c)(0x69839F3E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -D__MICROLIB -gdwarf-3 -O0 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -IC:/Users/alexf/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.15.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-IC:/Keil_v5/ARM/CMSIS/Include-D__UVISION_VERSION="532" -DSTM32F413xx-o ./objects/functions.o -MD)
+I (STM32F413xx.h)(0x6983A06F)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5F5174FE)
-I (functions.h)(0x693AF994)
+I (functions.h)(0x6983A0F0)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5F5174FE)
-F (.\startup_stm32f413xx.s)(0x693AF994)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-3 -Wa,armasm,--pd,"__MICROLIB SETA 1" -Wa,armasm,--pd,"__EVAL SETA 1"-IC:/Users/alexf/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.15.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-IC:/Keil_v5/ARM/CMSIS/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 532" -Wa,armasm,--pd,"STM32F413xx SETA 1"-o ./objects/startup_stm32f413xx.o)
-F (.\STM32F413XX.h)(0x693AF994)()
+F (.\startup_stm32f413xx.s)(0x69838F16)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-3 -Wa,armasm,--pd,"__MICROLIB SETA 1" -Wa,armasm,--pd,"__EVAL SETA 1"-IC:/Users/alexf/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.15.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-IC:/Keil_v5/ARM/CMSIS/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 532" -Wa,armasm,--pd,"STM32F413xx SETA 1"-o ./objects/startup_stm32f413xx.o)
+F (.\STM32F413XX.h)(0x6983A06F)()

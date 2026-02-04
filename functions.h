@@ -3,15 +3,11 @@
 
 #include <stdint.h> // Per float e uint32_t
 
-// --- SOLO PROTOTIPI ---
+//prototipi 
 void init(void);
 void scrivi_char(char c);
 void scrivi_stringa(char *str);
-void fToSring(float r);
-void TIM2_IRQHandler(void);
 // Aggiungi in functions.h
-void update_USART1_baudrate(uint32_t baud_div);
-void set_clock_84MHz(void);
 void set_clock_16MHz(void);
 void funzione_can_transmit_sim(void);
 void funzione_can_receive_sim(void);
