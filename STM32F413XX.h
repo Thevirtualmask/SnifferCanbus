@@ -23,33 +23,32 @@
 #define PWR_CR         *(long*)0x40007000
 #define CPACR          *(long*)0xE000ED88
 
-// CAN1 (Base 0x40006400)
-#define CAN1_MCR     *(long*)0x40006400
-#define CAN1_MSR     *(long*)0x40006404
-#define CAN1_TSR     *(long*)0x40006408
-#define CAN1_RF0R    *(long*)0x4000640C
-#define CAN1_BTR     *(long*)0x4000641C
+#define CAN1_MCR     *(volatile long*)0x40006400
+#define CAN1_MSR     *(volatile long*)0x40006404
+#define CAN1_TSR     *(volatile long*)0x40006408
+#define CAN1_RF0R    *(volatile long*)0x4000640C
+#define CAN1_BTR     *(volatile long*)0x4000641C
 
 // CAN1 TX Mailbox 0
-#define CAN1_TI0R    *(long*)0x40006580
-#define CAN1_TDT0R   *(long*)0x40006584
-#define CAN1_TDL0R   *(long*)0x40006588
-#define CAN1_TDH0R   *(long*)0x4000658C
+#define CAN1_TI0R    *(volatile long*)0x40006580
+#define CAN1_TDT0R   *(volatile long*)0x40006584
+#define CAN1_TDL0R   *(volatile long*)0x40006588
+#define CAN1_TDH0R   *(volatile long*)0x4000658C
 
 // CAN1 RX FIFO 0
-#define CAN1_RI0R    *(long*)0x400065B0
-#define CAN1_RDT0R   *(long*)0x400065B4
-#define CAN1_RDL0R   *(long*)0x400065B8
-#define CAN1_RDH0R   *(long*)0x400065BC
+#define CAN1_RI0R    *(volatile long*)0x400065B0
+#define CAN1_RDT0R   *(volatile long*)0x400065B4
+#define CAN1_RDL0R   *(volatile long*)0x400065B8
+#define CAN1_RDH0R   *(volatile long*)0x400065BC
 
 // CAN Filtri
-#define CAN_FMR      *(long*)0x40006600
-#define CAN_FM1R     *(long*)0x40006604
-#define CAN_FS1R     *(long*)0x4000660C
-#define CAN_FA1R     *(long*)0x4000661C
-#define CAN_F0R1     *(long*)0x40006640
-#define CAN_F0R2     *(long*)0x40006644
-
+#define CAN_FMR      *(volatile long*)0x40006600
+#define CAN_FM1R     *(volatile long*)0x40006604
+#define CAN_FS1R     *(volatile long*)0x4000660C
+#define CAN_FA1R     *(volatile long*)0x4000661C
+#define CAN_F0R1     *(volatile long*)0x40006640
+#define CAN_F0R2     *(volatile long*)0x40006644
+	
 // Variabile buffer per sprintf
 static char buffer_invio[100];
 #endif
