@@ -1,12 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include "STM32F413xx.h"
+#include "STM32F413XX.h"
+
+// Per diagnostica pin
+#ifndef GPIOA_IDR
+#define GPIOA_IDR    *(volatile long*)0x40020010
+#endif
+#ifndef GPIOA_PUPDR
+#define GPIOA_PUPDR  *(volatile long*)0x4002000C
+#endif
 
 // --- VARIABILI GLOBALI ---
-long current_cpu_freq = 16; // Valore in MHz (16 o 80)
+long current_cpu_freq = 16; 
 char menu_buffer[100];
-static char buffer_invio[100]; // Per lo sniffer
+static char buffer_invio[100];
 
 // --- PROTOTIPI ---
 void init(void);
@@ -17,29 +25,21 @@ void set_clock_16MHz(void);
 void stampa_intestazione(void);
 void gestisci_menu_frequenza(void);
 void Gestione_Sniffer_CAN(long cpu_freq);
+long leggi_numero_hex(void); 
 
 int main(void) {
     init(); 
-    scrivi_stringa("\n\r** STM32F413 PRONTA **\n\r");
+    scrivi_stringa("\n\r** STM32F413 READY **\n\r");
 
     while(1) {
         stampa_intestazione();
-        
-        // Attesa carattere
         while(!(USART1_SR & 0x00000020)); 
         char scelta = (char)USART1_DR;
 
         switch(scelta) {
-            case '1': 
-                gestisci_menu_frequenza(); 
-                break;
-            case '2': 
-                // Passo la frequenza in Hz
-                Gestione_Sniffer_CAN(current_cpu_freq * 1000000); 
-                break;
-            default:  
-                scrivi_stringa("\n\r[ERR] Comando errato.\n\r"); 
-                break;
+            case '1': gestisci_menu_frequenza(); break;
+            case '2': Gestione_Sniffer_CAN(current_cpu_freq * 1000000); break;
+            default:  scrivi_stringa("\n\r[ERR] Comando errato.\n\r"); break;
         }
     }
 }
@@ -48,13 +48,10 @@ void init(void) {
     RCC_AHB1ENR = (long)0x00000001; 
     RCC_APB1ENR = (long)0x10000000; 
     RCC_APB2ENR = (long)0x00000010; 
-
     PWR_CR = (long)0x0000C000; 
-
     GPIOA_MODER = (long)0xA8280400;  
     GPIOA_PUPDR = (long)0x00140000; 
     GPIOA_AFRH  = (long)0x00000770;  
-
     USART1_BRR = (long)0x00000683;  
     USART1_CR1 = (long)0x0000200C; 
 }
@@ -68,32 +65,21 @@ void scrivi_stringa(char* str) {
     while(*str) scrivi_char(*str++);
 }
 
-// Funzione per leggere un numero esadecimale da tastiera (es: scrivi "1A" -> invio)
 long leggi_numero_hex(void) {
-    char buf[9]; // Max 8 cifre hex + terminatore
+    char buf[9]; 
     int idx = 0;
     char c;
     long valore = 0;
     
     while(1) {
-        while(!(USART1_SR & 0x00000020)); // Attesa RX
+        while(!(USART1_SR & 0x00000020)); 
         c = (char)USART1_DR;
-        
-        // Se premo Invio (\r) finisco
         if(c == '\r') break;
-        
-        // Echo del carattere (per vedere cosa scrivo)
         scrivi_char(c);
-        
-        // Salvo nel buffer se c'è spazio
-        if(idx < 8) {
-            buf[idx++] = c;
-        }
+        if(idx < 8) buf[idx++] = c;
     }
-    buf[idx] = 0; // Termino stringa
+    buf[idx] = 0; 
     
-    // Conversione manuale ASCII -> HEX
-    // sscanf(buf, "%x", &valore); // Metodo standard, ma facciamolo a mano per sicurezza
     valore = 0;
     for(int i=0; i<idx; i++) {
         char ch = buf[i];
@@ -101,24 +87,20 @@ long leggi_numero_hex(void) {
         if(ch >= '0' && ch <= '9') digit = ch - '0';
         else if(ch >= 'A' && ch <= 'F') digit = ch - 'A' + 10;
         else if(ch >= 'a' && ch <= 'f') digit = ch - 'a' + 10;
-        
-        valore = (valore << 4) | digit; // Shift e aggiungi
+        valore = (valore << 4) | digit; 
     }
-    
-    scrivi_stringa("\r\n"); // A capo dopo invio
+    scrivi_stringa("\r\n"); 
     return valore;
 }
+
 void set_clock_80MHz(void) {
     USART1_CR1 = (long)0x00000000; 
     FLASH_ACR = (long)0x00000704; 
-
     RCC_PLLCFGR = (long)0x02002810; 
     RCC_CR = (long)0x01000081; 
     while(!(RCC_CR & 0x02000000)); 
-
     RCC_CFGR = (long)0x00001002; 
     while ((RCC_CFGR & 0x0000000C) != 0x00000008);
-
     for(int i = 0; i < 200000; i++); 
     USART1_BRR = (long)0x0000208D; 
     USART1_CR1 = (long)0x0000200C;
@@ -128,10 +110,8 @@ void set_clock_16MHz(void) {
     USART1_CR1 = (long)0x00000000;
     RCC_CFGR = (long)0x00000000; 
     while ((RCC_CFGR & 0x0000000C) != 0x00000000);
-
     RCC_CR = (long)0x00000081; 
     FLASH_ACR = (long)0x00000000;
-
     USART1_BRR = (long)0x00000683; 
     USART1_CR1 = (long)0x0000200C;
 }
@@ -147,7 +127,6 @@ void gestisci_menu_frequenza(void) {
     scrivi_stringa("\n\r(a) 16MHz (b) 80MHz > ");
     while(!(USART1_SR & 0x00000020));
     char sub = (char)USART1_DR;
-
     if(sub == 'a' && current_cpu_freq != 16) {
         set_clock_16MHz(); current_cpu_freq = 16;
         scrivi_stringa("\n\r[OK] 16 MHz.\n\r");
@@ -162,54 +141,61 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     long rx_id, rx_len, rx_data_L, rx_data_H;
     char carattere_rx;
     long timeout = 0;
-    
-    // Variabili per l'input manuale
     long user_id, user_dlc, user_dataL, user_dataH;
 
-    // 1. CLOCK
-    RCC_AHB1ENR |= 0x00000001; // GPIOA
-    RCC_APB1ENR |= 0x02000000; // CAN1 (Bit 25)
+    RCC_AHB1ENR |= 0x00000001; 
+    RCC_APB1ENR |= 0x02000000; 
 
-    // 2. GPIO (PA11=RX, PA12=TX)
+    // Configurazione GPIO (PA11=RX, PA12=TX)
     GPIOA_MODER &= 0xFC3FFFFF; 
-    GPIOA_MODER |= 0x02800000; // Alternate Function
-    
-    // --- FONDAMENTALE PER LOOPBACK E INIT ---
-    // Il Pull-Up evita che RX legga 0 e blocchi l'inizializzazione
-    GPIOA_PUPDR &= 0xFC3FFFFF; 
-    GPIOA_PUPDR |= 0x01400000; 
-
+    GPIOA_MODER |= 0x02800000; 
     GPIOA_AFRH &= 0xFFF00FFF;
-    GPIOA_AFRH |= 0x00099000;  // AF9 (CAN1)
+    GPIOA_AFRH |= 0x00099000;  
 
-    scrivi_stringa("\r\n--- SNIFFER CAN (Loopback+PullUp) ---\r\n");
+    // DISATTIVO PULL-UP (Uso Bus Reale)
+    GPIOA_PUPDR &= 0xFC3FFFFF;
 
-    // 4. CONFIGURAZIONE CAN (SEQUENZA FIX INIT)
+    scrivi_stringa("\r\n--- SNIFFER CAN (REAL HARDWARE) ---\r\n");
+
+    // DIAGNOSTICA PIN PRIMA DELL'INIT
+    // Leggo il valore fisico del pin PA11 (RX)
+    long pin_rx_val = (GPIOA_IDR & (1 << 11));
+    if(pin_rx_val) {
+        scrivi_stringa("[CHECK] Pin RX (PA11) e' ALTO (3.3V). Hardware OK.\r\n");
+    } else {
+        scrivi_stringa("[CHECK] Pin RX (PA11) e' BASSO (0V). ERRORE HARDWARE!\r\n");
+        scrivi_stringa(" -> Verifica alimentazione Transceiver.\r\n");
+        scrivi_stringa(" -> Verifica collegamenti CAN H/L.\r\n");
+    }
+
+    // --- SEQUENZA DI INIT OTTIMIZZATA (Diretta Sleep -> Init) ---
     
-    // A. RESET SOFTWARE (MCR Bit 15)
-    // Questo è il trucco per sbloccare l'INRQ se è impallato
+    // 1. Reset Software (Reset bit 15)
     CAN1_MCR |= 0x00008000; 
-    while(CAN1_MCR & 0x00008000); // Aspetto che il reset finisca
+    while(CAN1_MCR & 0x00008000); 
 
-    // B. USCITA DA SLEEP MODE (MCR Bit 1)
-    CAN1_MCR &= ~0x00000002; 
-    while(CAN1_MSR & 0x00000002); // Aspetto SLAK=0
+    // 2. Richiesta Init (INRQ=1) E contemporaneamente uscita Sleep (SLEEP=0)
+    CAN1_MCR = (CAN1_MCR & ~0x00000002) | 0x00000001;
 
-    // C. RICHIESTA INIT MODE (MCR Bit 0)
-    CAN1_MCR |= 0x00000001; 
-    while(!(CAN1_MSR & 0x00000001)); // Aspetto INAK=1 (Ora dovrebbe andare!)
+    // 3. Attesa conferma INAK=1
+    timeout = 0;
+    while((CAN1_MSR & 0x00000001) == 0) {
+        timeout++;
+        if(timeout > 1000000) {
+            scrivi_stringa("ERRORE: Impossibile entrare in Init Mode.\r\n");
+            break;
+        }
+    }
 
-    // D. CONFIGURAZIONE BIT TIMING
     if(cpu_freq > 40000000) 
-        CAN1_BTR = 0x003E0003; // 80 MHz -> 500k
+        CAN1_BTR = 0x003E0003; 
     else 
-        CAN1_BTR = 0x002B0001; // 16 MHz -> 500k
+        CAN1_BTR = 0x002B0001; 
 
-    // E. ATTIVAZIONE LOOPBACK
-    // Se lo commenti, assicurati di avere i fili collegati!
-    CAN1_BTR |= 0x40000000; 
+    // Loopback DISATTIVO
+    // CAN1_BTR |= 0x40000000; 
 
-    // F. FILTRI (Accetta tutto)
+    // Filtri
     CAN_FMR |= 1;    
     CAN_FA1R &= ~1;  
     CAN_FS1R |= 1;   
@@ -219,27 +205,26 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     CAN_FA1R |= 1;   
     CAN_FMR &= ~1;   
 
-    // G. AVVIO (Uscita Init Mode)
-    CAN1_MCR &= ~0x00000001; // INRQ=0
+    // AVVIO (Normal Mode)
+    CAN1_MCR &= ~0x00000001; 
     
-    // H. ATTESA SINCRONIZZAZIONE
     timeout = 0;
     while(CAN1_MSR & 0x00000001) 
     {
         timeout++;
-        if(timeout > 8000000) // Timeout aumentato
+        if(timeout > 8000000) 
         {
-            scrivi_stringa("ERRORE CRITICO: CAN Init Fallito.\r\n");
-            scrivi_stringa("Probabile causa: Clock errato o Pin RX a massa.\r\n");
+            scrivi_stringa("ERRORE: Init Failed (INAK bloccato a 1).\r\n");
+            scrivi_stringa("Il CAN non sente il bus libero. Vedi CHECK sopra.\r\n");
             break; 
         }
     }
 
-    if(timeout <= 8000000) scrivi_stringa("CAN Avviato. Premi 't' per menu invio.\r\n");
+    if(timeout <= 8000000) scrivi_stringa("CAN Avviato. 't' per invio.\r\n");
 
     while(1) 
     {
-        // RICEZIONE (Sniffer)
+        // RX
         if((CAN1_RF0R & 0x00000003) != 0) 
         {
             long raw_id = CAN1_RI0R;
@@ -260,43 +245,37 @@ void Gestione_Sniffer_CAN(long cpu_freq)
             scrivi_stringa(buffer_invio);
         }
 
-        // TRASMISSIONE MANUALE (Menu)
+        // TX
         if(USART1_SR & 0x00000020) 
         {
             carattere_rx = (char)USART1_DR;
             if(carattere_rx == 't' || carattere_rx == 'T') 
             {
-                // -- INIZIO MENU COMPILAZIONE PACCHETTO --
-                scrivi_stringa("\r\n--- COMPILAZIONE PACCHETTO ---\r\n");
+                scrivi_stringa("\r\n--- INVIO MANUALE ---\r\n");
                 
-                scrivi_stringa("Inserisci ID Hex (es: 123): ");
+                scrivi_stringa("ID Hex: ");
                 user_id = leggi_numero_hex();
                 
-                scrivi_stringa("Inserisci DLC (0-8): ");
+                scrivi_stringa("DLC: ");
                 user_dlc = leggi_numero_hex();
                 if(user_dlc > 8) user_dlc = 8;
 
-                scrivi_stringa("Dati Low Hex (es: AABB): ");
+                scrivi_stringa("Data L: ");
                 user_dataL = leggi_numero_hex();
 
-                scrivi_stringa("Dati High Hex (es: CCDD): ");
+                scrivi_stringa("Data H: ");
                 user_dataH = leggi_numero_hex();
 
-                // Invio effettivo
                 if(CAN1_TSR & 0x04000000) 
                 {
-                    // Nota: Assumo Standard ID per semplicità. 
-                    // Se vuoi Extended, dovresti chiedere anche quello.
-                    CAN1_TI0R = (user_id << 21); // Sposto a sinistra per STD ID
-                    
+                    CAN1_TI0R = (user_id << 21); 
                     CAN1_TDT0R = user_dlc; 
                     CAN1_TDL0R = user_dataL; 
                     CAN1_TDH0R = user_dataH; 
-                    
-                    CAN1_TI0R |= 0x00000001; // TX Request
-                    scrivi_stringa("Pacchetto Inviato!\r\n");
+                    CAN1_TI0R |= 0x00000001; 
+                    scrivi_stringa("Inviato!\r\n");
                 } 
-                else scrivi_stringa("Err: Mailbox Piena\r\n");
+                else scrivi_stringa("Mailbox Piena\r\n");
             }
         }
     }

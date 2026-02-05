@@ -28,45 +28,34 @@ Project File Date:  02/05/2026
 *** Using Compiler 'V6.14.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 assembling startup_stm32f413xx.s...
-9_Led_Blinking_USART2_TX_RX.c(4): warning: non-portable path to file '"STM32F413XX.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include "STM32F413xx.h"
-         ^~~~~~~~~~~~~~~
-         "STM32F413XX.h"
 9_Led_Blinking_USART2_TX_RX.c(4): warning: In file included from...
-./STM32F413xx.h(54): warning: no newline at end of file [-Wnewline-eof]
+./STM32F413XX.h(54): warning: no newline at end of file [-Wnewline-eof]
 #endif
       ^
-9_Led_Blinking_USART2_TX_RX.c(7): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
-long current_cpu_freq = 16; // Valore in MHz (16 o 80)
+9_Led_Blinking_USART2_TX_RX.c(15): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
+long current_cpu_freq = 16; 
      ^
-9_Led_Blinking_USART2_TX_RX.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-long current_cpu_freq = 16; // Valore in MHz (16 o 80)
+9_Led_Blinking_USART2_TX_RX.c(15): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+long current_cpu_freq = 16; 
 ^
-9_Led_Blinking_USART2_TX_RX.c(72): warning: no previous prototype for function 'leggi_numero_hex' [-Wmissing-prototypes]
-long leggi_numero_hex(void) {
-     ^
-9_Led_Blinking_USART2_TX_RX.c(72): note: declare 'static' if the function is not intended to be used outside of this translation unit
-long leggi_numero_hex(void) {
-^
-static 
-9_Led_Blinking_USART2_TX_RX.c(303): warning: no newline at end of file [-Wnewline-eof]
+9_Led_Blinking_USART2_TX_RX.c(282): warning: no newline at end of file [-Wnewline-eof]
 }
  ^
-9_Led_Blinking_USART2_TX_RX.c(161): warning: function 'Gestione_Sniffer_CAN' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+9_Led_Blinking_USART2_TX_RX.c(140): warning: function 'Gestione_Sniffer_CAN' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
 {
 ^
-9_Led_Blinking_USART2_TX_RX.c(8): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
+9_Led_Blinking_USART2_TX_RX.c(16): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
 char menu_buffer[100];
      ^
-9_Led_Blinking_USART2_TX_RX.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+9_Led_Blinking_USART2_TX_RX.c(16): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 char menu_buffer[100];
 ^
-7 warnings generated.
+5 warnings generated.
 compiling 9_Led_Blinking_USART2_TX_RX.c...
 linking...
-Program Size: Code=5828 RO-data=1084 RW-data=4 ZI-data=1228  
+Program Size: Code=5884 RO-data=1216 RW-data=4 ZI-data=1228  
 FromELF: creating hex file...
-".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 7 Warning(s).
+".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -78,7 +67,7 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
