@@ -22,84 +22,41 @@ Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
 C:\Users\alexf\Desktop\SnifferCanbus\9_Led_B_Usart2.uvprojx
-Project File Date:  02/04/2026
+Project File Date:  02/05/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.14.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-functions.c(1): warning: non-portable path to file '"STM32F413XX.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include "STM32F413xx.h" 
-         ^~~~~~~~~~~~~~~
-         "STM32F413XX.h"
-functions.c(1): warning: In file included from...
-./STM32F413xx.h(38): warning: no newline at end of file [-Wnewline-eof]
-#endif
-      ^
-functions.c(2): warning: In file included from...
-./functions.h(17): warning: no newline at end of file [-Wnewline-eof]
-#endif
-      ^
-functions.c(83): warning: no previous prototype for function 'set_clock_100MHz' [-Wmissing-prototypes]
-void set_clock_100MHz(void) // Mantengo il nome per compatibilità col main, ma va a 80MHz
-     ^
-functions.c(83): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void set_clock_100MHz(void) // Mantengo il nome per compatibilità col main, ma va a 80MHz
-^
-static 
-functions.c(189): warning: unused parameter 'baud_div' [-Wunused-parameter]
-void update_USART1_baudrate(uint32_t baud_div) { }
-                                     ^
-functions.c(189): warning: no previous prototype for function 'update_USART1_baudrate' [-Wmissing-prototypes]
-void update_USART1_baudrate(uint32_t baud_div) { }
-     ^
-functions.c(189): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void update_USART1_baudrate(uint32_t baud_div) { }
-^
-static 
-functions.c(201): warning: no newline at end of file [-Wnewline-eof]
-}
- ^
-7 warnings generated.
-compiling functions.c...
 assembling startup_stm32f413xx.s...
 9_Led_Blinking_USART2_TX_RX.c(4): warning: non-portable path to file '"STM32F413XX.h"'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include "STM32F413xx.h" // Header corretto
+#include "STM32F413xx.h"
          ^~~~~~~~~~~~~~~
          "STM32F413XX.h"
 9_Led_Blinking_USART2_TX_RX.c(4): warning: In file included from...
-./STM32F413xx.h(38): warning: no newline at end of file [-Wnewline-eof]
+./STM32F413xx.h(26): warning: no newline at end of file [-Wnewline-eof]
 #endif
       ^
-9_Led_Blinking_USART2_TX_RX.c(5): warning: In file included from...
-./functions.h(17): warning: no newline at end of file [-Wnewline-eof]
-#endif
-      ^
-9_Led_Blinking_USART2_TX_RX.c(8): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
-uint32_t current_cpu_freq = 16;
-         ^
-9_Led_Blinking_USART2_TX_RX.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-uint32_t current_cpu_freq = 16;
+9_Led_Blinking_USART2_TX_RX.c(6): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
+long current_cpu_freq = 16;
+     ^
+9_Led_Blinking_USART2_TX_RX.c(6): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+long current_cpu_freq = 16;
 ^
-9_Led_Blinking_USART2_TX_RX.c(27): warning: while loop has empty body [-Wempty-body]
-                        while(!(USART1_SR & 0x00000020)); // Attesa RX
-                                                        ^
-9_Led_Blinking_USART2_TX_RX.c(27): note: put the semicolon on a separate line to silence this warning
-9_Led_Blinking_USART2_TX_RX.c(67): warning: while loop has empty body [-Wempty-body]
- while(!(USART1_SR & 0x00000020));
-                                 ^
-9_Led_Blinking_USART2_TX_RX.c(67): note: put the semicolon on a separate line to silence this warning
-9_Led_Blinking_USART2_TX_RX.c(9): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
+9_Led_Blinking_USART2_TX_RX.c(118): warning: no newline at end of file [-Wnewline-eof]
+void funzione_can_receive_sim(void) { scrivi_stringa("\n\r[CAN] RX Sim...\n\r"); }
+                                                                                  ^
+9_Led_Blinking_USART2_TX_RX.c(7): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
 char menu_buffer[100];
      ^
-9_Led_Blinking_USART2_TX_RX.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+9_Led_Blinking_USART2_TX_RX.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 char menu_buffer[100];
 ^
-7 warnings generated.
+5 warnings generated.
 compiling 9_Led_Blinking_USART2_TX_RX.c...
 linking...
-Program Size: Code=4844 RO-data=1148 RW-data=4 ZI-data=1132  
+Program Size: Code=4608 RO-data=740 RW-data=4 ZI-data=1132  
 FromELF: creating hex file...
-".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 14 Warning(s).
+".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -112,7 +69,7 @@ Package Vendor: Keil
   C:\Users\alexf\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>

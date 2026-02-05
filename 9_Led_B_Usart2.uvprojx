@@ -389,11 +389,6 @@
               <FilePath>.\9_Led_Blinking_USART2_TX_RX.c</FilePath>
             </File>
             <File>
-              <FileName>functions.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\functions.c</FilePath>
-            </File>
-            <File>
               <FileName>startup_stm32f413xx.s</FileName>
               <FileType>2</FileType>
               <FilePath>.\startup_stm32f413xx.s</FilePath>
