@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.32.0.0
 Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Alexander Foxil , HP Inc., LIC=----
+License Information: alessio de matteis, unisa, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.32.0.0
@@ -21,7 +21,7 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
 Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
-C:\Users\alexf\Desktop\SnifferCanbus\9_Led_B_Usart2.uvprojx
+C:\Users\alexi\Documents\SnifferCanbus\9_Led_B_Usart2.uvprojx
 Project File Date:  02/05/2026
 
 <h2>Output:</h2>
@@ -33,43 +33,48 @@ assembling startup_stm32f413xx.s...
          ^~~~~~~~~~~~~~~
          "STM32F413XX.h"
 9_Led_Blinking_USART2_TX_RX.c(4): warning: In file included from...
-./STM32F413xx.h(26): warning: no newline at end of file [-Wnewline-eof]
+./STM32F413xx.h(55): warning: no newline at end of file [-Wnewline-eof]
 #endif
       ^
-9_Led_Blinking_USART2_TX_RX.c(6): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
-long current_cpu_freq = 16;
-     ^
-9_Led_Blinking_USART2_TX_RX.c(6): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-long current_cpu_freq = 16;
-^
-9_Led_Blinking_USART2_TX_RX.c(118): warning: no newline at end of file [-Wnewline-eof]
-void funzione_can_receive_sim(void) { scrivi_stringa("\n\r[CAN] RX Sim...\n\r"); }
-                                                                                  ^
-9_Led_Blinking_USART2_TX_RX.c(7): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
-char menu_buffer[100];
+9_Led_Blinking_USART2_TX_RX.c(7): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
+long current_cpu_freq = 16; // Valore in MHz (16 o 80)
      ^
 9_Led_Blinking_USART2_TX_RX.c(7): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+long current_cpu_freq = 16; // Valore in MHz (16 o 80)
+^
+9_Led_Blinking_USART2_TX_RX.c(240): warning: implicit conversion changes signedness: 'unsigned int' to 'long' [-Wsign-conversion]
+                    CAN1_TDH0R = 0xAABBCCDD; 
+                               ~ ^~~~~~~~~~
+9_Led_Blinking_USART2_TX_RX.c(250): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+9_Led_Blinking_USART2_TX_RX.c(127): warning: function 'Gestione_Sniffer_CAN' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+9_Led_Blinking_USART2_TX_RX.c(8): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
+char menu_buffer[100];
+     ^
+9_Led_Blinking_USART2_TX_RX.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 char menu_buffer[100];
 ^
-5 warnings generated.
+7 warnings generated.
 compiling 9_Led_Blinking_USART2_TX_RX.c...
 linking...
-Program Size: Code=4608 RO-data=740 RW-data=4 ZI-data=1132  
+Program Size: Code=5360 RO-data=864 RW-data=4 ZI-data=1228  
 FromELF: creating hex file...
-".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 5 Warning(s).
+".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
-                Keil.STM32F4xx_DFP.2.15.0
-                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.3.1.1.pack
+                Keil.STM32F4xx_DFP.3.1.1
+                STMicroelectronics STM32F4 Series Device Support
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\alexf\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
