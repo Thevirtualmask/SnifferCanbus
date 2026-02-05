@@ -14,6 +14,11 @@
 #define GPIOA_PUPDR    *(long*)0x4002000C 
 #define GPIOA_AFRH     *(long*)0x40020024 
 
+#define GPIOB_MODER  *(volatile long*)0x40020400
+#define GPIOB_PUPDR  *(volatile long*)0x4002040C
+#define GPIOB_IDR    *(volatile long*)0x40020410
+#define GPIOB_AFRH   *(volatile long*)0x40020424
+
 #define USART1_SR      *(long*)0x40011000 
 #define USART1_DR      *(long*)0x40011004 
 #define USART1_BRR     *(long*)0x40011008 

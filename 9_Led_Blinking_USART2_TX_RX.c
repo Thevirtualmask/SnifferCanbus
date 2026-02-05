@@ -3,21 +3,6 @@
 #include <stdint.h>
 #include "STM32F413XX.h"
 
-// Per diagnostica pin
-#ifndef GPIOA_IDR
-#define GPIOA_IDR    *(volatile long*)0x40020010
-#endif
-#ifndef GPIOA_PUPDR
-#define GPIOA_PUPDR  *(volatile long*)0x4002000C
-#endif
-
-// Per diagnostica pin
-#ifndef GPIOA_IDR
-#define GPIOA_IDR    *(volatile long*)0x40020010
-#endif
-#ifndef GPIOA_PUPDR
-#define GPIOA_PUPDR  *(volatile long*)0x4002000C
-#endif
 
 // --- VARIABILI GLOBALI ---
 long current_cpu_freq = 16; 
@@ -151,58 +136,60 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     long timeout = 0;
     long user_id, user_dlc, user_dataL, user_dataH;
 
-    RCC_AHB1ENR |= 0x00000001; 
-    RCC_APB1ENR |= 0x02000000; 
+    // 1. CLOCK
+    // Abilito GPIOA (per USART1) e GPIOB (per CAN1 su PB8/9) e CAN1
+    RCC_AHB1ENR |= 0x00000003; // Bit 0 (GPIOA) | Bit 1 (GPIOB)
+    RCC_APB1ENR |= 0x02000000; // CAN1
 
-    // Configurazione GPIO (PA11=RX, PA12=TX)
-    // Con Transceiver hardware, non servono pull-up/down interni
-    GPIOA_MODER &= 0xFC3FFFFF; 
-    GPIOA_MODER |= 0x02800000; 
-    GPIOA_AFRH &= 0xFFF00FFF;
-    GPIOA_AFRH |= 0x00099000;  
-    GPIOA_PUPDR &= 0xFC3FFFFF; // Nessun Pull-up/down
+    // 2. CONFIGURAZIONE GPIO SU PORTA B (PB8=RX, PB9=TX)
+    // Registro MODER: Imposto '10' (AF) su PB8 e PB9
+    // PB8 (bit 17:16), PB9 (bit 19:18)
+    // Maschera pulizia: 0x000F0000 (Pulisco i 4 bit)
+    GPIOB_MODER &= ~0x000F0000; 
+    // Valore scrittura: 0x000A0000 (1010)
+    GPIOB_MODER |= 0x000A0000; 
 
-    scrivi_stringa("\r\n--- SNIFFER CAN (REAL HARDWARE) ---\r\n");
+    // Registro AFRH: Imposto AF9 (CAN1) su PB8 e PB9
+    // PB8 è AFRH[3:0], PB9 è AFRH[7:4]
+    // Maschera pulizia: 0x000000FF
+    // Valore scrittura: 0x00000099 (9 su entrambi)
+    GPIOB_AFRH &= ~0x000000FF;
+    GPIOB_AFRH |= 0x00000099;  
 
-    // Check diagnostico Transceiver
-    long pin_rx_val = (GPIOA_IDR & (1 << 11));
+    // Disattivo Pull-Up su PB8/PB9 (gestito dal transceiver)
+    GPIOB_PUPDR &= ~0x000F0000;
+
+    scrivi_stringa("\r\n--- SNIFFER CAN (PB8/PB9 MAPPING) ---\r\n");
+
+    // Check diagnostico Transceiver su PB8
+    long pin_rx_val = (GPIOB_IDR & (1 << 8)); // Controllo PB8
     if(pin_rx_val) {
-        scrivi_stringa("[HW CHECK] Pin RX (PA11) e' ALTO. Transceiver OK.\r\n");
+        scrivi_stringa("[HW CHECK] Pin RX (PB8) e' ALTO. Transceiver OK.\r\n");
     } else {
-        scrivi_stringa("[HW CHECK] Pin RX (PA11) e' BASSO. Transceiver SPENTO o GUASTO?\r\n");
-        // Se è basso, l'init fallirà dopo.
+        scrivi_stringa("[HW CHECK] Pin RX (PB8) e' BASSO. Bus Dominante o Transceiver KO.\r\n");
     }
 
-    // --- SEQUENZA DI INIT CORRETTA ---
+    // --- SEQUENZA DI INIT ---
     
-    // 1. Reset Software (Pulisce tutto)
-    CAN1_MCR |= 0x00008000; 
+    CAN1_MCR |= 0x00008000; // Reset
     while(CAN1_MCR & 0x00008000); 
 
-    // 2. Transizione Diretta: Sleep -> Init
-    // Scriviamo direttamente 1 nel registro MCR.
-    // Questo mette a 0 il bit SLEEP (bit 1) e a 1 il bit INRQ (bit 0) SIMULTANEAMENTE.
-    // In questo modo evitiamo di dover sincronizzare il bus in fase di setup.
+    // Sleep OFF, Init ON
     CAN1_MCR = 0x00000001; 
 
-    // 3. Attesa conferma ingresso in Init (INAK=1)
     timeout = 0;
     while((CAN1_MSR & 0x00000001) == 0) {
         timeout++;
         if(timeout > 1000000) {
-            scrivi_stringa("ERRORE CRITICO: INRQ bloccato. Init fallito.\r\n");
+            scrivi_stringa("ERRORE CRITICO: INRQ bloccato.\r\n");
             break;
         }
     }
 
-    // Bit Timing
     if(cpu_freq > 40000000) 
         CAN1_BTR = 0x003E0003; 
     else 
         CAN1_BTR = 0x002B0001; 
-
-    // NO Loopback (siamo su hardware reale)
-    // CAN1_BTR |= 0x40000000; 
 
     // Filtri
     CAN_FMR |= 1;    
@@ -214,24 +201,22 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     CAN_FA1R |= 1;   
     CAN_FMR &= ~1;   
 
-    // AVVIO (Uscita Init -> Normal Mode)
+    // AVVIO
     CAN1_MCR &= ~0x00000001; 
     
-    // Attesa Sincronizzazione Bus (INAK=0)
-    // Qui serve il transceiver funzionante e il bus terminato
     timeout = 0;
     while(CAN1_MSR & 0x00000001) 
     {
         timeout++;
         if(timeout > 8000000) 
         {
-            scrivi_stringa("ERRORE: Init Failed (INAK bloccato a 1).\r\n");
-            scrivi_stringa("Il CAN non sente il bus libero (11 bit recessivi).\r\n");
+            scrivi_stringa("ERRORE: Init Failed (INAK=1).\r\n");
+            scrivi_stringa("Il CAN non sente il bus libero su PB8.\r\n");
             break; 
         }
     }
 
-    if(timeout <= 8000000) scrivi_stringa("CAN Avviato. 't' per invio.\r\n");
+    if(timeout <= 8000000) scrivi_stringa("CAN Avviato su PB8/PB9. 't' per invio.\r\n");
 
     while(1) 
     {
