@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\9_Led_B_Usart2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\9_Led_B_Usart2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Thu Feb  5 10:39:03 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Thu Feb  5 11:03:17 2026
 <BR><P>
 <H3>Maximum Stack Usage =         64 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -644,8 +644,8 @@ Global Symbols
 <P><STRONG><a name="[7f]"></a>gestisci_menu_frequenza</STRONG> (Thumb, 170 bytes, Stack size 16 bytes, 9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = gestisci_menu_frequenza &rArr; scrivi_stringa &rArr; scrivi_char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_16MHz
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_100MHz
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_80MHz
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_16MHz
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -685,14 +685,14 @@ Global Symbols
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funzione_can_receive_sim
 </UL>
 
-<P><STRONG><a name="[81]"></a>set_clock_100MHz</STRONG> (Thumb, 186 bytes, Stack size 4 bytes, 9_led_blinking_usart2_tx_rx.o(.text.set_clock_100MHz))
-<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = set_clock_100MHz
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
-</UL>
-
 <P><STRONG><a name="[80]"></a>set_clock_16MHz</STRONG> (Thumb, 98 bytes, Stack size 0 bytes, 9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz))
 <BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
+</UL>
+
+<P><STRONG><a name="[81]"></a>set_clock_80MHz</STRONG> (Thumb, 186 bytes, Stack size 4 bytes, 9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = set_clock_80MHz
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
 </UL>
 
 <P><STRONG><a name="[83]"></a>stampa_intestazione</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, 9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione))

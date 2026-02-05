@@ -25,7 +25,7 @@ Section Cross References
     9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa) for scrivi_stringa
     9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.data.current_cpu_freq) for current_cpu_freq
     9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz) for set_clock_16MHz
-    9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_100MHz) for set_clock_100MHz
+    9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz) for set_clock_80MHz
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) for [Anonymous Symbol]
     9_led_blinking_usart2_tx_rx.o(.text.funzione_can_transmit_sim) refers to 9_led_blinking_usart2_tx_rx.o(.rodata.str1.1) for .L.str.8
     9_led_blinking_usart2_tx_rx.o(.text.funzione_can_transmit_sim) refers to 9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa) for scrivi_stringa
@@ -34,7 +34,7 @@ Section Cross References
     9_led_blinking_usart2_tx_rx.o(.text.funzione_can_receive_sim) refers to 9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa) for scrivi_stringa
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.funzione_can_receive_sim) refers to 9_led_blinking_usart2_tx_rx.o(.text.funzione_can_receive_sim) for [Anonymous Symbol]
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.scrivi_char) refers to 9_led_blinking_usart2_tx_rx.o(.text.scrivi_char) for [Anonymous Symbol]
-    9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_100MHz) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_100MHz) for [Anonymous Symbol]
+    9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_80MHz) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz) for [Anonymous Symbol]
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_16MHz) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz) for [Anonymous Symbol]
     startup_stm32f413xx.o(RESET) refers to startup_stm32f413xx.o(STACK) for __initial_sp
     startup_stm32f413xx.o(RESET) refers to startup_stm32f413xx.o(.text) for Reset_Handler
@@ -133,7 +133,7 @@ Removing Unused input sections from the image.
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.funzione_can_transmit_sim), (8 bytes).
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.funzione_can_receive_sim), (8 bytes).
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.scrivi_char), (8 bytes).
-    Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_100MHz), (8 bytes).
+    Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_80MHz), (8 bytes).
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_16MHz), (8 bytes).
     Removing startup_stm32f413xx.o(HEAP), (512 bytes).
 
@@ -216,8 +216,8 @@ Image Symbol Table
     [Anonymous Symbol]                       0x08000890   Section        0  9_led_blinking_usart2_tx_rx.o(.text.main)
     [Anonymous Symbol]                       0x08000914   Section        0  9_led_blinking_usart2_tx_rx.o(.text.scrivi_char)
     [Anonymous Symbol]                       0x08000944   Section        0  9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa)
-    [Anonymous Symbol]                       0x08000968   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_100MHz)
-    [Anonymous Symbol]                       0x08000a24   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
+    [Anonymous Symbol]                       0x08000968   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
+    [Anonymous Symbol]                       0x080009cc   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz)
     [Anonymous Symbol]                       0x08000a88   Section        0  9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione)
     i.__0sprintf                             0x08000ad4   Section        0  printfa.o(i.__0sprintf)
     i.__scatterload_copy                     0x08000afc   Section       14  handlers.o(i.__scatterload_copy)
@@ -239,11 +239,11 @@ Image Symbol Table
     .L.str.9                                 0x0800140e   Data          20  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
     .L.str.8                                 0x08001422   Data          20  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
     .L.str.1                                 0x08001436   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.7                                 0x08001450   Data          18  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.6                                 0x08001462   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.3                                 0x08001473   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.4                                 0x08001484   Data          37  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.5                                 0x080014a9   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.7                                 0x08001450   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.6                                 0x08001461   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.3                                 0x08001472   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.4                                 0x08001483   Data          37  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.5                                 0x080014a8   Data          25  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
     STACK                                    0x20000070   Section     1024  startup_stm32f413xx.o(STACK)
 
     Global Symbols
@@ -402,8 +402,8 @@ Image Symbol Table
     main                                     0x08000891   Thumb Code   130  9_led_blinking_usart2_tx_rx.o(.text.main)
     scrivi_char                              0x08000915   Thumb Code    48  9_led_blinking_usart2_tx_rx.o(.text.scrivi_char)
     scrivi_stringa                           0x08000945   Thumb Code    36  9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa)
-    set_clock_100MHz                         0x08000969   Thumb Code   186  9_led_blinking_usart2_tx_rx.o(.text.set_clock_100MHz)
-    set_clock_16MHz                          0x08000a25   Thumb Code    98  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
+    set_clock_16MHz                          0x08000969   Thumb Code    98  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
+    set_clock_80MHz                          0x080009cd   Thumb Code   186  9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz)
     stampa_intestazione                      0x08000a89   Thumb Code    74  9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione)
     __0sprintf                               0x08000ad5   Thumb Code    34  printfa.o(i.__0sprintf)
     __1sprintf                               0x08000ad5   Thumb Code     0  printfa.o(i.__0sprintf)
@@ -468,9 +468,9 @@ Memory Map of the image
     0x08000912   0x08000912   0x00000002   PAD
     0x08000914   0x08000914   0x00000030   Code   RO           16    .text.scrivi_char   9_led_blinking_usart2_tx_rx.o
     0x08000944   0x08000944   0x00000024   Code   RO            6    .text.scrivi_stringa  9_led_blinking_usart2_tx_rx.o
-    0x08000968   0x08000968   0x000000ba   Code   RO           18    .text.set_clock_100MHz  9_led_blinking_usart2_tx_rx.o
-    0x08000a22   0x08000a22   0x00000002   PAD
-    0x08000a24   0x08000a24   0x00000062   Code   RO           20    .text.set_clock_16MHz  9_led_blinking_usart2_tx_rx.o
+    0x08000968   0x08000968   0x00000062   Code   RO           20    .text.set_clock_16MHz  9_led_blinking_usart2_tx_rx.o
+    0x080009ca   0x080009ca   0x00000002   PAD
+    0x080009cc   0x080009cc   0x000000ba   Code   RO           18    .text.set_clock_80MHz  9_led_blinking_usart2_tx_rx.o
     0x08000a86   0x08000a86   0x00000002   PAD
     0x08000a88   0x08000a88   0x0000004a   Code   RO            8    .text.stampa_intestazione  9_led_blinking_usart2_tx_rx.o
     0x08000ad2   0x08000ad2   0x00000002   PAD
@@ -484,8 +484,8 @@ Memory Map of the image
     0x0800137c   0x0800137c   0x00000024   Code   RO           53    i._printf_post_padding  mc_w.l(printfa.o)
     0x080013a0   0x080013a0   0x0000002e   Code   RO           54    i._printf_pre_padding  mc_w.l(printfa.o)
     0x080013ce   0x080013ce   0x0000000a   Code   RO           56    i._sputc            mc_w.l(printfa.o)
-    0x080013d8   0x080013d8   0x000000eb   Data   RO           23    .rodata.str1.1      9_led_blinking_usart2_tx_rx.o
-    0x080014c3   0x080014c3   0x00000001   PAD
+    0x080013d8   0x080013d8   0x000000e9   Data   RO           23    .rodata.str1.1      9_led_blinking_usart2_tx_rx.o
+    0x080014c1   0x080014c1   0x00000003   PAD
     0x080014c4   0x080014c4   0x00000020   Data   RO          118    Region$$Table       anon$$obj.o
 
 
@@ -507,13 +507,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       896          0        235          4        100       1951   9_led_blinking_usart2_tx_rx.o
+       896          0        233          4        100       1950   9_led_blinking_usart2_tx_rx.o
         28          4        472          0       1024        812   startup_stm32f413xx.o
 
     ----------------------------------------------------------------------
-       936          4        740          4       1132       2763   Object Totals
+       936          4        740          4       1132       2762   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        12          0          1          0          8          0   (incl. Padding)
+        12          0          3          0          8          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -564,8 +564,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4608        106        740          4       1132       3755   Grand Totals
-      4608        106        740          4       1132       3755   ELF Image Totals
+      4608        106        740          4       1132       3754   Grand Totals
+      4608        106        740          4       1132       3754   ELF Image Totals
       4608        106        740          4          0          0   ROM Totals
 
 ==============================================================================

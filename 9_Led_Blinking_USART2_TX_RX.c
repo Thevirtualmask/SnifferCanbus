@@ -10,7 +10,7 @@ char menu_buffer[100];
 void init(void);
 void scrivi_char(char c);
 void scrivi_stringa(char* str);
-void set_clock_100MHz(void);
+void set_clock_80MHz(void);
 void set_clock_16MHz(void);
 void stampa_intestazione(void);
 void gestisci_menu_frequenza(void);
@@ -65,7 +65,7 @@ void scrivi_stringa(char* str) {
     while(*str) scrivi_char(*str++);
 }
 
-void set_clock_100MHz(void) {
+void set_clock_80MHz(void) {
     USART1_CR1 = (long)0x00000000; 
     FLASH_ACR = (long)0x00000704; 
 
@@ -101,16 +101,16 @@ void stampa_intestazione(void) {
 }
 
 void gestisci_menu_frequenza(void) {
-    scrivi_stringa("\n\r(a) 16MHz (b) 100MHz > ");
+    scrivi_stringa("\n\r(a) 16MHz (b) 80MHz > ");
     while(!(USART1_SR & 0x00000020));
     char sub = (char)USART1_DR;
 
     if(sub == 'a' && current_cpu_freq != 16) {
         set_clock_16MHz(); current_cpu_freq = 16;
         scrivi_stringa("\n\r[OK] 16 MHz.\n\r");
-    } else if(sub == 'b' && current_cpu_freq != 100) {
-        set_clock_100MHz(); current_cpu_freq = 100;
-        scrivi_stringa("\n\r[OK] 100 MHz.\n\r");
+    } else if(sub == 'b' && current_cpu_freq != 80) {
+        set_clock_80MHz(); current_cpu_freq = 80;
+        scrivi_stringa("\n\r[OK] 80 MHz.\n\r");
     }
 }
 
