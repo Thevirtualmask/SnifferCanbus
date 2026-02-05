@@ -11,6 +11,14 @@
 #define GPIOA_PUPDR  *(volatile long*)0x4002000C
 #endif
 
+// Per diagnostica pin
+#ifndef GPIOA_IDR
+#define GPIOA_IDR    *(volatile long*)0x40020010
+#endif
+#ifndef GPIOA_PUPDR
+#define GPIOA_PUPDR  *(volatile long*)0x4002000C
+#endif
+
 // --- VARIABILI GLOBALI ---
 long current_cpu_freq = 16; 
 char menu_buffer[100];
@@ -147,52 +155,53 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     RCC_APB1ENR |= 0x02000000; 
 
     // Configurazione GPIO (PA11=RX, PA12=TX)
+    // Con Transceiver hardware, non servono pull-up/down interni
     GPIOA_MODER &= 0xFC3FFFFF; 
     GPIOA_MODER |= 0x02800000; 
     GPIOA_AFRH &= 0xFFF00FFF;
     GPIOA_AFRH |= 0x00099000;  
-
-    // DISATTIVO PULL-UP (Uso Bus Reale)
-    GPIOA_PUPDR &= 0xFC3FFFFF;
+    GPIOA_PUPDR &= 0xFC3FFFFF; // Nessun Pull-up/down
 
     scrivi_stringa("\r\n--- SNIFFER CAN (REAL HARDWARE) ---\r\n");
 
-    // DIAGNOSTICA PIN PRIMA DELL'INIT
-    // Leggo il valore fisico del pin PA11 (RX)
+    // Check diagnostico Transceiver
     long pin_rx_val = (GPIOA_IDR & (1 << 11));
     if(pin_rx_val) {
-        scrivi_stringa("[CHECK] Pin RX (PA11) e' ALTO (3.3V). Hardware OK.\r\n");
+        scrivi_stringa("[HW CHECK] Pin RX (PA11) e' ALTO. Transceiver OK.\r\n");
     } else {
-        scrivi_stringa("[CHECK] Pin RX (PA11) e' BASSO (0V). ERRORE HARDWARE!\r\n");
-        scrivi_stringa(" -> Verifica alimentazione Transceiver.\r\n");
-        scrivi_stringa(" -> Verifica collegamenti CAN H/L.\r\n");
+        scrivi_stringa("[HW CHECK] Pin RX (PA11) e' BASSO. Transceiver SPENTO o GUASTO?\r\n");
+        // Se è basso, l'init fallirà dopo.
     }
 
-    // --- SEQUENZA DI INIT OTTIMIZZATA (Diretta Sleep -> Init) ---
+    // --- SEQUENZA DI INIT CORRETTA ---
     
-    // 1. Reset Software (Reset bit 15)
+    // 1. Reset Software (Pulisce tutto)
     CAN1_MCR |= 0x00008000; 
     while(CAN1_MCR & 0x00008000); 
 
-    // 2. Richiesta Init (INRQ=1) E contemporaneamente uscita Sleep (SLEEP=0)
-    CAN1_MCR = (CAN1_MCR & ~0x00000002) | 0x00000001;
+    // 2. Transizione Diretta: Sleep -> Init
+    // Scriviamo direttamente 1 nel registro MCR.
+    // Questo mette a 0 il bit SLEEP (bit 1) e a 1 il bit INRQ (bit 0) SIMULTANEAMENTE.
+    // In questo modo evitiamo di dover sincronizzare il bus in fase di setup.
+    CAN1_MCR = 0x00000001; 
 
-    // 3. Attesa conferma INAK=1
+    // 3. Attesa conferma ingresso in Init (INAK=1)
     timeout = 0;
     while((CAN1_MSR & 0x00000001) == 0) {
         timeout++;
         if(timeout > 1000000) {
-            scrivi_stringa("ERRORE: Impossibile entrare in Init Mode.\r\n");
+            scrivi_stringa("ERRORE CRITICO: INRQ bloccato. Init fallito.\r\n");
             break;
         }
     }
 
+    // Bit Timing
     if(cpu_freq > 40000000) 
         CAN1_BTR = 0x003E0003; 
     else 
         CAN1_BTR = 0x002B0001; 
 
-    // Loopback DISATTIVO
+    // NO Loopback (siamo su hardware reale)
     // CAN1_BTR |= 0x40000000; 
 
     // Filtri
@@ -205,9 +214,11 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     CAN_FA1R |= 1;   
     CAN_FMR &= ~1;   
 
-    // AVVIO (Normal Mode)
+    // AVVIO (Uscita Init -> Normal Mode)
     CAN1_MCR &= ~0x00000001; 
     
+    // Attesa Sincronizzazione Bus (INAK=0)
+    // Qui serve il transceiver funzionante e il bus terminato
     timeout = 0;
     while(CAN1_MSR & 0x00000001) 
     {
@@ -215,7 +226,7 @@ void Gestione_Sniffer_CAN(long cpu_freq)
         if(timeout > 8000000) 
         {
             scrivi_stringa("ERRORE: Init Failed (INAK bloccato a 1).\r\n");
-            scrivi_stringa("Il CAN non sente il bus libero. Vedi CHECK sopra.\r\n");
+            scrivi_stringa("Il CAN non sente il bus libero (11 bit recessivi).\r\n");
             break; 
         }
     }
