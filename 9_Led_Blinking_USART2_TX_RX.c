@@ -1,21 +1,46 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
-#include "STM32F413XX.h"
+#include "STM32F413XX.h" 
 
-
-// Per diagnostica pin GPIOA
-#ifndef GPIOA_IDR
-#define GPIOA_IDR    *(volatile long*)0x40020010
-#define GPIOA_PUPDR  *(volatile long*)0x4002000C
+// --- DEFINIZIONI REGISTRI (Volatile) ---
+#ifndef CAN1_BASE
+#define CAN1_BASE    0x40006400
+#define CAN1_MCR     *(volatile long*)(CAN1_BASE + 0x00)
+#define CAN1_MSR     *(volatile long*)(CAN1_BASE + 0x04)
+#define CAN1_TSR     *(volatile long*)(CAN1_BASE + 0x08)
+#define CAN1_RF0R    *(volatile long*)(CAN1_BASE + 0x0C)
+#define CAN1_BTR     *(volatile long*)(CAN1_BASE + 0x1C)
+#define CAN1_ESR     *(volatile long*)(CAN1_BASE + 0x18) 
+#define CAN1_TI0R    *(volatile long*)(CAN1_BASE + 0x180)
+#define CAN1_TDT0R   *(volatile long*)(CAN1_BASE + 0x184)
+#define CAN1_TDL0R   *(volatile long*)(CAN1_BASE + 0x188)
+#define CAN1_TDH0R   *(volatile long*)(CAN1_BASE + 0x18C)
+#define CAN1_RI0R    *(volatile long*)(CAN1_BASE + 0x1B0)
+#define CAN1_RDT0R   *(volatile long*)(CAN1_BASE + 0x1B4)
+#define CAN1_RDL0R   *(volatile long*)(CAN1_BASE + 0x1B8)
+#define CAN1_RDH0R   *(volatile long*)(CAN1_BASE + 0x1BC)
+#define CAN_FMR      *(volatile long*)(CAN1_BASE + 0x200)
+#define CAN_FM1R     *(volatile long*)(CAN1_BASE + 0x204)
+#define CAN_FS1R     *(volatile long*)(CAN1_BASE + 0x20C)
+#define CAN_FA1R     *(volatile long*)(CAN1_BASE + 0x21C)
+#define CAN_F0R1     *(volatile long*)(CAN1_BASE + 0x240)
+#define CAN_F0R2     *(volatile long*)(CAN1_BASE + 0x244)
 #endif
 
-// --- VARIABILI GLOBALI ---
-long current_cpu_freq = 16; 
-char menu_buffer[100];
+// GPIO Indirizzi Puri
+#define RCC_AHB1ENR_RAW  *(volatile long*)0x40023830
+#define RCC_APB1ENR_RAW  *(volatile long*)0x40023840
+#define GPIOB_MODER_RAW  *(volatile long*)0x40020400
+#define GPIOB_AFRH_RAW   *(volatile long*)0x40020424
+#define GPIOB_IDR_RAW    *(volatile long*)0x40020410
+#define GPIOB_PUPDR_RAW  *(volatile long*)0x4002040C
+
+static long current_cpu_freq = 16; 
+static char menu_buffer[100];
 static char buffer_invio[100];
 
-// --- PROTOTIPI ---
+// PROTOTIPI
 void init(void);
 void scrivi_char(char c);
 void scrivi_stringa(char* str);
@@ -25,6 +50,7 @@ void stampa_intestazione(void);
 void gestisci_menu_frequenza(void);
 void Gestione_Sniffer_CAN(long cpu_freq);
 long leggi_numero_hex(void); 
+void Dump_Registri_CAN(void); 
 
 int main(void) {
     init(); 
@@ -69,7 +95,6 @@ long leggi_numero_hex(void) {
     int idx = 0;
     char c;
     long valore = 0;
-    
     while(1) {
         while(!(USART1_SR & 0x00000020)); 
         c = (char)USART1_DR;
@@ -78,7 +103,6 @@ long leggi_numero_hex(void) {
         if(idx < 8) buf[idx++] = c;
     }
     buf[idx] = 0; 
-    
     valore = 0;
     for(int i=0; i<idx; i++) {
         char ch = buf[i];
@@ -135,60 +159,84 @@ void gestisci_menu_frequenza(void) {
     }
 }
 
+// Funzione DEBUG robusta
+void Dump_Registri_CAN(void) {
+    scrivi_stringa("\r\n--- DUMP REGISTRI ---\r\n");
+    sprintf(menu_buffer, "MCR: %08X\r\n", (unsigned int)CAN1_MCR); scrivi_stringa(menu_buffer);
+    sprintf(menu_buffer, "MSR: %08X (INAK=%d)\r\n", (unsigned int)CAN1_MSR, (int)(CAN1_MSR & 1)); scrivi_stringa(menu_buffer);
+    
+    unsigned int esr_val = (unsigned int)CAN1_ESR;
+    sprintf(menu_buffer, "ESR: %08X (LEC=%d)\r\n", esr_val, (int)((esr_val >> 4) & 0x7)); 
+    scrivi_stringa(menu_buffer);
+    
+    scrivi_stringa("---------------------\r\n");
+}
+
 void Gestione_Sniffer_CAN(long cpu_freq) 
 {
     long rx_id, rx_len, rx_data_L, rx_data_H;
     char carattere_rx;
-    long timeout = 0;
     long user_id, user_dlc, user_dataL, user_dataH;
+    long timeout;
 
-    // 1. CLOCK (GPIOA per UART, GPIOB per CAN, CAN1)
-    RCC_AHB1ENR |= 0x00000003; 
-    RCC_APB1ENR |= 0x02000000; 
-
-    // 2. CONFIGURAZIONE GPIO SU PORTA B (PB8=RX, PB9=TX)
-    GPIOB_MODER &= ~0x000F0000; 
-    GPIOB_MODER |= 0x000A0000; // AF Mode
-
-    // --- RITORNO AD AF9 (0x99) - CORRETTO PER F413 ---
-    GPIOB_AFRH &= ~0x000000FF;
-    GPIOB_AFRH |= 0x00000099;  // AF9 (CAN1)
-
-    // ATTIVO PULL-UP INTERNO SU PB8 (RX) PER SICUREZZA
-    // Se il transceiver non spinge bene a 3.3V, questo aiuta l'Init a passare.
-    // Maschera: 0x000F0000. Scrittura: 0x00010000 (01 su bit 17:16)
-    GPIOB_PUPDR &= ~0x000F0000;
-    GPIOB_PUPDR |= 0x00010000;
-
-    scrivi_stringa("\r\n--- SNIFFER CAN (PB8/PB9 - AF9) ---\r\n");
-
-    // DIAGNOSTICA REALE
-    long pin_rx_val = (GPIOB_IDR & (1 << 8)); 
-    if(pin_rx_val) {
-        scrivi_stringa("[HW CHECK] Pin PB8 letto come ALTO (1). Hardware OK.\r\n");
-    } else {
-        scrivi_stringa("[HW CHECK] Pin PB8 letto come BASSO (0). \r\n");
-        scrivi_stringa("ATTENZIONE: Se hai fatto il corto, DEVI leggere ALTO qui.\r\n");
-    }
-
-    // --- SEQUENZA DI INIT ---
+    // 1. CLOCK (Abilito e aspetto)
+    RCC_AHB1ENR_RAW |= 0x00000003; // GPIOA, GPIOB
+    RCC_APB1ENR_RAW |= 0x02000000; // CAN1
     
-    // Reset e Uscita Sleep Atomica
-    CAN1_MCR |= 0x00008000; 
-    while(CAN1_MCR & 0x00008000); 
-    CAN1_MCR = 0x00000001; 
+    for(int i=0; i<10000; i++); 
 
-    // Attesa INAK=1
-    timeout = 0;
-    while((CAN1_MSR & 0x00000001) == 0) {
-        if(timeout++ > 1000000) {
-            scrivi_stringa("ERRORE CRITICO: INRQ bloccato.\r\n");
-            break;
+    // 2. GPIO PB8/PB9 Setup
+    GPIOB_MODER_RAW &= ~0x000F0000; 
+    GPIOB_MODER_RAW |= 0x000A0000; // AF Mode
+    
+    // --- CORREZIONE: AF8 (0x88) per PB8/PB9 su F413 ---
+    GPIOB_AFRH_RAW &= ~0x000000FF;
+    GPIOB_AFRH_RAW |= 0x00000088;  // AF8 (CAN1)
+
+    // PullUp disabilitati (uso Transceiver)
+    GPIOB_PUPDR_RAW &= ~0x000F0000; 
+
+    scrivi_stringa("\r\n--- CAN CONFIG AF8 (PB8/PB9) ---\r\n");
+
+    // Reset CAN
+    CAN1_MCR |= 0x00008000;
+    while(CAN1_MCR & 0x00008000);
+
+    // Richiesta Init (Forzata)
+    CAN1_MCR = 0x00000001; 
+    
+    timeout=0;
+    while((CAN1_MSR & 1) == 0) {
+        if(timeout++ > 100000) { 
+            scrivi_stringa("Fail (INRQ stuck)\r\n"); 
+            Dump_Registri_CAN();
+            return; 
         }
     }
 
-    if(cpu_freq > 40000000) CAN1_BTR = 0x003E0003; 
-    else CAN1_BTR = 0x002B0001; 
+    // --- CONFIGURAZIONE TIMING ---
+    // Target: 500 kbit/s
+    
+    if(cpu_freq > 40000000) 
+    {
+        // CASO 80 MHz -> APB1 = 40 MHz
+        // 40.000.000 / 500.000 = 80 TQ
+        // Prescaler = 4 (Reg=3) -> 20 TQ/bit
+        // TS1=15, TS2=4 -> 1+15+4 = 20 TQ
+        // Reg: SJW=0, TS2=3, TS1=14, BRP=3
+        CAN1_BTR = 0x003E0003; 
+        scrivi_stringa("Mode: 40MHz APB1 (80MHz CPU)\r\n");
+    } 
+    else 
+    {
+        // CASO 16 MHz -> APB1 = 16 MHz
+        // 16.000.000 / 500.000 = 32 TQ
+        // Prescaler = 2 (Reg=1) -> 16 TQ/bit
+        // TS1=12, TS2=3 -> 1+12+3 = 16 TQ
+        // Reg: SJW=0, TS2=2, TS1=11, BRP=1
+        CAN1_BTR = 0x002B0001;
+        scrivi_stringa("Mode: 16MHz APB1 (16MHz CPU)\r\n");
+    }
 
     // Filtri
     CAN_FMR |= 1;    
@@ -200,24 +248,21 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     CAN_FA1R |= 1;   
     CAN_FMR &= ~1;   
 
-    // AVVIO
+    // AVVIO (Uscita Init)
     CAN1_MCR &= ~0x00000001; 
-    
-    // Attesa Sync (INAK -> 0)
+
+    // Attesa Sync (INAK=0)
     timeout = 0;
-    while(CAN1_MSR & 0x00000001) 
-    {
+    while(CAN1_MSR & 0x00000001) {
         timeout++;
-        if(timeout > 8000000) 
-        {
-            scrivi_stringa("ERRORE: Init Failed (INAK=1).\r\n");
-            scrivi_stringa("Il CAN non sente il bus libero su PB8.\r\n");
-            // Se qui fallisce anche col corto, controlla il [HW CHECK] sopra.
-            break; 
+        if(timeout > 8000000) { 
+            scrivi_stringa("ERRORE: Init Failed (INAK stuck).\r\n");
+            Dump_Registri_CAN(); 
+            return; 
         }
     }
-
-    if(timeout <= 8000000) scrivi_stringa("CAN Avviato correttamente.\r\n");
+    
+    scrivi_stringa("CAN AVVIATO! 't' per invio.\r\n");
 
     while(1) 
     {

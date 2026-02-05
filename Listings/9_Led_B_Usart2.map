@@ -27,8 +27,9 @@ Section Cross References
     9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz) for set_clock_16MHz
     9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz) for set_clock_80MHz
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.gestisci_menu_frequenza) refers to 9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza) for [Anonymous Symbol]
-    9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.rodata.str1.1) for .L.str.9
+    9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.rodata.str1.1) for .L.str.14
     9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa) for scrivi_stringa
+    9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN) for Dump_Registri_CAN
     9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.bss.buffer_invio) for buffer_invio
     9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to printfa.o(i.__0sprintf) for sprintf
     9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.text.leggi_numero_hex) for leggi_numero_hex
@@ -40,6 +41,11 @@ Section Cross References
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.leggi_numero_hex) refers to 9_led_blinking_usart2_tx_rx.o(.text.leggi_numero_hex) for [Anonymous Symbol]
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_80MHz) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz) for [Anonymous Symbol]
     9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_16MHz) refers to 9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz) for [Anonymous Symbol]
+    9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.rodata.str1.1) for .L.str.9
+    9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa) for scrivi_stringa
+    9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.bss.menu_buffer) for menu_buffer
+    9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN) refers to printfa.o(i.__0sprintf) for sprintf
+    9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.Dump_Registri_CAN) refers to 9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN) for [Anonymous Symbol]
     startup_stm32f413xx.o(RESET) refers to startup_stm32f413xx.o(STACK) for __initial_sp
     startup_stm32f413xx.o(RESET) refers to startup_stm32f413xx.o(.text) for Reset_Handler
     startup_stm32f413xx.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
@@ -139,9 +145,10 @@ Removing Unused input sections from the image.
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.leggi_numero_hex), (8 bytes).
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_80MHz), (8 bytes).
     Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.set_clock_16MHz), (8 bytes).
+    Removing 9_led_blinking_usart2_tx_rx.o(.ARM.exidx.text.Dump_Registri_CAN), (8 bytes).
     Removing startup_stm32f413xx.o(HEAP), (512 bytes).
 
-12 unused section(s) (total 592 bytes) removed from the image.
+13 unused section(s) (total 600 bytes) removed from the image.
 
 ==============================================================================
 
@@ -213,60 +220,68 @@ Image Symbol Table
     .text                                    0x0800064a   Section        0  llushr.o(.text)
     .text                                    0x0800066a   Section        0  llsshr.o(.text)
     .text                                    0x0800068e   Section        0  depilogue.o(.text)
-    [Anonymous Symbol]                       0x08000748   Section        0  9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN)
-    [Anonymous Symbol]                       0x08000b48   Section        0  9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza)
-    [Anonymous Symbol]                       0x08000bf4   Section        0  9_led_blinking_usart2_tx_rx.o(.text.init)
-    [Anonymous Symbol]                       0x08000c70   Section        0  9_led_blinking_usart2_tx_rx.o(.text.leggi_numero_hex)
-    [Anonymous Symbol]                       0x08000d80   Section        0  9_led_blinking_usart2_tx_rx.o(.text.main)
-    [Anonymous Symbol]                       0x08000e08   Section        0  9_led_blinking_usart2_tx_rx.o(.text.scrivi_char)
-    [Anonymous Symbol]                       0x08000e38   Section        0  9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa)
-    [Anonymous Symbol]                       0x08000e5c   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
-    [Anonymous Symbol]                       0x08000ec0   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz)
-    [Anonymous Symbol]                       0x08000f7c   Section        0  9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione)
-    i.__0sprintf                             0x08000fc8   Section        0  printfa.o(i.__0sprintf)
-    i.__scatterload_copy                     0x08000ff0   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x08000ffe   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x08001000   Section       14  handlers.o(i.__scatterload_zeroinit)
-    _fp_digits                               0x08001011   Thumb Code   366  printfa.o(i._fp_digits)
-    i._fp_digits                             0x08001010   Section        0  printfa.o(i._fp_digits)
-    _printf_core                             0x08001195   Thumb Code  1744  printfa.o(i._printf_core)
-    i._printf_core                           0x08001194   Section        0  printfa.o(i._printf_core)
-    _printf_post_padding                     0x08001871   Thumb Code    36  printfa.o(i._printf_post_padding)
-    i._printf_post_padding                   0x08001870   Section        0  printfa.o(i._printf_post_padding)
-    _printf_pre_padding                      0x08001895   Thumb Code    46  printfa.o(i._printf_pre_padding)
-    i._printf_pre_padding                    0x08001894   Section        0  printfa.o(i._printf_pre_padding)
-    _sputc                                   0x080018c3   Thumb Code    10  printfa.o(i._sputc)
-    i._sputc                                 0x080018c2   Section        0  printfa.o(i._sputc)
-    .L.str.11                                0x080018cc   Data          44  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x080018cc   Section        0  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.25                                0x080018f8   Data          11  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.9                                 0x08001903   Data          40  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.20                                0x0800192b   Data          18  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.14                                0x0800193d   Data          32  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.15                                0x0800195d   Data          41  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.10                                0x08001986   Data          55  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.16                                0x080019bd   Data          29  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.12                                0x080019da   Data          60  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.13                                0x08001a16   Data          33  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.19                                0x08001a37   Data          25  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.26                                0x08001a50   Data          16  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.2                                 0x08001a5d   Data           3  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str                                   0x08001a60   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.3                                 0x08001a7a   Data          27  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.1                                 0x08001a95   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.8                                 0x08001aaf   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.7                                 0x08001ac0   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.4                                 0x08001ad1   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.22                                0x08001ae2   Data           6  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.24                                0x08001ae8   Data           9  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.23                                0x08001af1   Data           9  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.21                                0x08001afa   Data           9  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.5                                 0x08001b03   Data          29  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.6                                 0x08001b20   Data          25  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.18                                0x08001b39   Data          10  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
-    .L.str.17                                0x08001b43   Data          10  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08000748   Section        0  9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN)
+    [Anonymous Symbol]                       0x080007ec   Section        0  9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN)
+    [Anonymous Symbol]                       0x08000bc4   Section        0  9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza)
+    [Anonymous Symbol]                       0x08000c70   Section        0  9_led_blinking_usart2_tx_rx.o(.text.init)
+    [Anonymous Symbol]                       0x08000cec   Section        0  9_led_blinking_usart2_tx_rx.o(.text.leggi_numero_hex)
+    [Anonymous Symbol]                       0x08000dfc   Section        0  9_led_blinking_usart2_tx_rx.o(.text.main)
+    [Anonymous Symbol]                       0x08000e84   Section        0  9_led_blinking_usart2_tx_rx.o(.text.scrivi_char)
+    [Anonymous Symbol]                       0x08000eb4   Section        0  9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa)
+    [Anonymous Symbol]                       0x08000ed8   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
+    [Anonymous Symbol]                       0x08000f3c   Section        0  9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz)
+    [Anonymous Symbol]                       0x08000ff8   Section        0  9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione)
+    i.__0sprintf                             0x08001044   Section        0  printfa.o(i.__0sprintf)
+    i.__scatterload_copy                     0x0800106c   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0800107a   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x0800107c   Section       14  handlers.o(i.__scatterload_zeroinit)
+    _fp_digits                               0x0800108d   Thumb Code   366  printfa.o(i._fp_digits)
+    i._fp_digits                             0x0800108c   Section        0  printfa.o(i._fp_digits)
+    _printf_core                             0x08001211   Thumb Code  1744  printfa.o(i._printf_core)
+    i._printf_core                           0x08001210   Section        0  printfa.o(i._printf_core)
+    _printf_post_padding                     0x080018ed   Thumb Code    36  printfa.o(i._printf_post_padding)
+    i._printf_post_padding                   0x080018ec   Section        0  printfa.o(i._printf_post_padding)
+    _printf_pre_padding                      0x08001911   Thumb Code    46  printfa.o(i._printf_pre_padding)
+    i._printf_pre_padding                    0x08001910   Section        0  printfa.o(i._printf_pre_padding)
+    _sputc                                   0x0800193f   Thumb Code    10  printfa.o(i._sputc)
+    i._sputc                                 0x0800193e   Section        0  printfa.o(i._sputc)
+    .L.str.28                                0x08001948   Data          11  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08001948   Section        0  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.16                                0x08001953   Data          31  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.17                                0x08001972   Data          31  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.12                                0x08001991   Data          21  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.11                                0x080019a6   Data          22  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.15                                0x080019bc   Data          20  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.14                                0x080019d0   Data          37  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.9                                 0x080019f5   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.23                                0x08001a0f   Data          18  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.13                                0x08001a21   Data          24  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.18                                0x08001a39   Data          36  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.19                                0x08001a5d   Data          30  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.10                                0x08001a7b   Data          12  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.22                                0x08001a87   Data          25  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.29                                0x08001aa0   Data          16  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.2                                 0x08001aad   Data           3  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str                                   0x08001ab0   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.3                                 0x08001aca   Data          27  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.1                                 0x08001ae5   Data          26  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.8                                 0x08001aff   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.7                                 0x08001b10   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.4                                 0x08001b21   Data          17  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.25                                0x08001b32   Data           6  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.27                                0x08001b38   Data           9  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.26                                0x08001b41   Data           9  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.24                                0x08001b4a   Data           9  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.5                                 0x08001b53   Data          29  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.6                                 0x08001b70   Data          25  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.21                                0x08001b89   Data          10  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    .L.str.20                                0x08001b93   Data          10  9_led_blinking_usart2_tx_rx.o(.rodata.str1.1)
+    current_cpu_freq                         0x20000000   Data           4  9_led_blinking_usart2_tx_rx.o(.data.current_cpu_freq)
+    [Anonymous Symbol]                       0x20000000   Section        0  9_led_blinking_usart2_tx_rx.o(.data.current_cpu_freq)
     buffer_invio                             0x20000008   Data         100  9_led_blinking_usart2_tx_rx.o(.bss.buffer_invio)
     [Anonymous Symbol]                       0x20000008   Section        0  9_led_blinking_usart2_tx_rx.o(.bss.buffer_invio)
+    menu_buffer                              0x2000006c   Data         100  9_led_blinking_usart2_tx_rx.o(.bss.menu_buffer)
+    [Anonymous Symbol]                       0x2000006c   Section        0  9_led_blinking_usart2_tx_rx.o(.bss.menu_buffer)
     STACK                                    0x200000d0   Section     1024  startup_stm32f413xx.o(STACK)
 
     Global Symbols
@@ -418,28 +433,27 @@ Image Symbol Table
     _ll_sshift_r                             0x0800066b   Thumb Code     0  llsshr.o(.text)
     _double_round                            0x0800068f   Thumb Code    30  depilogue.o(.text)
     _double_epilogue                         0x080006ad   Thumb Code   156  depilogue.o(.text)
-    Gestione_Sniffer_CAN                     0x08000749   Thumb Code  1024  9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN)
-    gestisci_menu_frequenza                  0x08000b49   Thumb Code   170  9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza)
-    init                                     0x08000bf5   Thumb Code   122  9_led_blinking_usart2_tx_rx.o(.text.init)
-    leggi_numero_hex                         0x08000c71   Thumb Code   270  9_led_blinking_usart2_tx_rx.o(.text.leggi_numero_hex)
-    main                                     0x08000d81   Thumb Code   136  9_led_blinking_usart2_tx_rx.o(.text.main)
-    scrivi_char                              0x08000e09   Thumb Code    48  9_led_blinking_usart2_tx_rx.o(.text.scrivi_char)
-    scrivi_stringa                           0x08000e39   Thumb Code    36  9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa)
-    set_clock_16MHz                          0x08000e5d   Thumb Code    98  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
-    set_clock_80MHz                          0x08000ec1   Thumb Code   186  9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz)
-    stampa_intestazione                      0x08000f7d   Thumb Code    74  9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione)
-    __0sprintf                               0x08000fc9   Thumb Code    34  printfa.o(i.__0sprintf)
-    __1sprintf                               0x08000fc9   Thumb Code     0  printfa.o(i.__0sprintf)
-    __2sprintf                               0x08000fc9   Thumb Code     0  printfa.o(i.__0sprintf)
-    __c89sprintf                             0x08000fc9   Thumb Code     0  printfa.o(i.__0sprintf)
-    sprintf                                  0x08000fc9   Thumb Code     0  printfa.o(i.__0sprintf)
-    __scatterload_copy                       0x08000ff1   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x08000fff   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x08001001   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    Region$$Table$$Base                      0x08001b50   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08001b70   Number         0  anon$$obj.o(Region$$Table)
-    current_cpu_freq                         0x20000000   Data           4  9_led_blinking_usart2_tx_rx.o(.data.current_cpu_freq)
-    menu_buffer                              0x2000006c   Data         100  9_led_blinking_usart2_tx_rx.o(.bss.menu_buffer)
+    Dump_Registri_CAN                        0x08000749   Thumb Code   162  9_led_blinking_usart2_tx_rx.o(.text.Dump_Registri_CAN)
+    Gestione_Sniffer_CAN                     0x080007ed   Thumb Code   982  9_led_blinking_usart2_tx_rx.o(.text.Gestione_Sniffer_CAN)
+    gestisci_menu_frequenza                  0x08000bc5   Thumb Code   170  9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza)
+    init                                     0x08000c71   Thumb Code   122  9_led_blinking_usart2_tx_rx.o(.text.init)
+    leggi_numero_hex                         0x08000ced   Thumb Code   270  9_led_blinking_usart2_tx_rx.o(.text.leggi_numero_hex)
+    main                                     0x08000dfd   Thumb Code   136  9_led_blinking_usart2_tx_rx.o(.text.main)
+    scrivi_char                              0x08000e85   Thumb Code    48  9_led_blinking_usart2_tx_rx.o(.text.scrivi_char)
+    scrivi_stringa                           0x08000eb5   Thumb Code    36  9_led_blinking_usart2_tx_rx.o(.text.scrivi_stringa)
+    set_clock_16MHz                          0x08000ed9   Thumb Code    98  9_led_blinking_usart2_tx_rx.o(.text.set_clock_16MHz)
+    set_clock_80MHz                          0x08000f3d   Thumb Code   186  9_led_blinking_usart2_tx_rx.o(.text.set_clock_80MHz)
+    stampa_intestazione                      0x08000ff9   Thumb Code    74  9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione)
+    __0sprintf                               0x08001045   Thumb Code    34  printfa.o(i.__0sprintf)
+    __1sprintf                               0x08001045   Thumb Code     0  printfa.o(i.__0sprintf)
+    __2sprintf                               0x08001045   Thumb Code     0  printfa.o(i.__0sprintf)
+    __c89sprintf                             0x08001045   Thumb Code     0  printfa.o(i.__0sprintf)
+    sprintf                                  0x08001045   Thumb Code     0  printfa.o(i.__0sprintf)
+    __scatterload_copy                       0x0800106d   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0800107b   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x0800107d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    Region$$Table$$Base                      0x08001ba0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08001bc0   Number         0  anon$$obj.o(Region$$Table)
     __initial_sp                             0x200004d0   Data           0  startup_stm32f413xx.o(STACK)
 
 
@@ -450,77 +464,80 @@ Memory Map of the image
 
   Image Entry point : 0x080001d9
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001b78, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00001bc8, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001b70, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00001bc0, Max: 0x00100000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x08000000   0x000001d8   Data   RO           34    RESET               startup_stm32f413xx.o
-    0x080001d8   0x080001d8   0x00000000   Code   RO           41  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x080001d8   0x080001d8   0x00000004   Code   RO           72    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x080001dc   0x080001dc   0x00000004   Code   RO           75    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x080001e0   0x080001e0   0x00000000   Code   RO           77    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x080001e0   0x080001e0   0x00000000   Code   RO           79    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x080001e0   0x080001e0   0x00000008   Code   RO           80    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080001e8   0x080001e8   0x00000000   Code   RO           82    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x080001e8   0x080001e8   0x00000000   Code   RO           84    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x080001e8   0x080001e8   0x00000004   Code   RO           73    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
-    0x080001ec   0x080001ec   0x0000001c   Code   RO           35    .text               startup_stm32f413xx.o
-    0x08000208   0x08000208   0x0000002c   Code   RO           91    .text               mc_w.l(uidiv.o)
-    0x08000234   0x08000234   0x00000062   Code   RO           93    .text               mc_w.l(uldiv.o)
-    0x08000296   0x08000296   0x00000000   Code   RO           95    .text               mc_w.l(iusefp.o)
-    0x08000296   0x08000296   0x0000014e   Code   RO           96    .text               mf_w.l(dadd.o)
-    0x080003e4   0x080003e4   0x000000e4   Code   RO           98    .text               mf_w.l(dmul.o)
-    0x080004c8   0x080004c8   0x000000de   Code   RO          100    .text               mf_w.l(ddiv.o)
-    0x080005a6   0x080005a6   0x00000030   Code   RO          102    .text               mf_w.l(dfixul.o)
+    0x08000000   0x08000000   0x000001d8   Data   RO           36    RESET               startup_stm32f413xx.o
+    0x080001d8   0x080001d8   0x00000000   Code   RO           43  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x080001d8   0x080001d8   0x00000004   Code   RO           74    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x080001dc   0x080001dc   0x00000004   Code   RO           77    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080001e0   0x080001e0   0x00000000   Code   RO           79    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080001e0   0x080001e0   0x00000000   Code   RO           81    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080001e0   0x080001e0   0x00000008   Code   RO           82    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080001e8   0x080001e8   0x00000000   Code   RO           84    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080001e8   0x080001e8   0x00000000   Code   RO           86    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080001e8   0x080001e8   0x00000004   Code   RO           75    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x080001ec   0x080001ec   0x0000001c   Code   RO           37    .text               startup_stm32f413xx.o
+    0x08000208   0x08000208   0x0000002c   Code   RO           93    .text               mc_w.l(uidiv.o)
+    0x08000234   0x08000234   0x00000062   Code   RO           95    .text               mc_w.l(uldiv.o)
+    0x08000296   0x08000296   0x00000000   Code   RO           97    .text               mc_w.l(iusefp.o)
+    0x08000296   0x08000296   0x0000014e   Code   RO           98    .text               mf_w.l(dadd.o)
+    0x080003e4   0x080003e4   0x000000e4   Code   RO          100    .text               mf_w.l(dmul.o)
+    0x080004c8   0x080004c8   0x000000de   Code   RO          102    .text               mf_w.l(ddiv.o)
+    0x080005a6   0x080005a6   0x00000030   Code   RO          104    .text               mf_w.l(dfixul.o)
     0x080005d6   0x080005d6   0x00000002   PAD
-    0x080005d8   0x080005d8   0x00000030   Code   RO          104    .text               mf_w.l(cdrcmple.o)
-    0x08000608   0x08000608   0x00000024   Code   RO          106    .text               mc_w.l(init.o)
-    0x0800062c   0x0800062c   0x0000001e   Code   RO          109    .text               mc_w.l(llshl.o)
-    0x0800064a   0x0800064a   0x00000020   Code   RO          111    .text               mc_w.l(llushr.o)
-    0x0800066a   0x0800066a   0x00000024   Code   RO          113    .text               mc_w.l(llsshr.o)
-    0x0800068e   0x0800068e   0x000000ba   Code   RO          116    .text               mf_w.l(depilogue.o)
-    0x08000748   0x08000748   0x00000400   Code   RO           12    .text.Gestione_Sniffer_CAN  9_led_blinking_usart2_tx_rx.o
-    0x08000b48   0x08000b48   0x000000aa   Code   RO           10    .text.gestisci_menu_frequenza  9_led_blinking_usart2_tx_rx.o
-    0x08000bf2   0x08000bf2   0x00000002   PAD
-    0x08000bf4   0x08000bf4   0x0000007a   Code   RO            4    .text.init          9_led_blinking_usart2_tx_rx.o
+    0x080005d8   0x080005d8   0x00000030   Code   RO          106    .text               mf_w.l(cdrcmple.o)
+    0x08000608   0x08000608   0x00000024   Code   RO          108    .text               mc_w.l(init.o)
+    0x0800062c   0x0800062c   0x0000001e   Code   RO          111    .text               mc_w.l(llshl.o)
+    0x0800064a   0x0800064a   0x00000020   Code   RO          113    .text               mc_w.l(llushr.o)
+    0x0800066a   0x0800066a   0x00000024   Code   RO          115    .text               mc_w.l(llsshr.o)
+    0x0800068e   0x0800068e   0x000000ba   Code   RO          118    .text               mf_w.l(depilogue.o)
+    0x08000748   0x08000748   0x000000a2   Code   RO           22    .text.Dump_Registri_CAN  9_led_blinking_usart2_tx_rx.o
+    0x080007ea   0x080007ea   0x00000002   PAD
+    0x080007ec   0x080007ec   0x000003d6   Code   RO           12    .text.Gestione_Sniffer_CAN  9_led_blinking_usart2_tx_rx.o
+    0x08000bc2   0x08000bc2   0x00000002   PAD
+    0x08000bc4   0x08000bc4   0x000000aa   Code   RO           10    .text.gestisci_menu_frequenza  9_led_blinking_usart2_tx_rx.o
     0x08000c6e   0x08000c6e   0x00000002   PAD
-    0x08000c70   0x08000c70   0x0000010e   Code   RO           16    .text.leggi_numero_hex  9_led_blinking_usart2_tx_rx.o
-    0x08000d7e   0x08000d7e   0x00000002   PAD
-    0x08000d80   0x08000d80   0x00000088   Code   RO            2    .text.main          9_led_blinking_usart2_tx_rx.o
-    0x08000e08   0x08000e08   0x00000030   Code   RO           14    .text.scrivi_char   9_led_blinking_usart2_tx_rx.o
-    0x08000e38   0x08000e38   0x00000024   Code   RO            6    .text.scrivi_stringa  9_led_blinking_usart2_tx_rx.o
-    0x08000e5c   0x08000e5c   0x00000062   Code   RO           20    .text.set_clock_16MHz  9_led_blinking_usart2_tx_rx.o
-    0x08000ebe   0x08000ebe   0x00000002   PAD
-    0x08000ec0   0x08000ec0   0x000000ba   Code   RO           18    .text.set_clock_80MHz  9_led_blinking_usart2_tx_rx.o
-    0x08000f7a   0x08000f7a   0x00000002   PAD
-    0x08000f7c   0x08000f7c   0x0000004a   Code   RO            8    .text.stampa_intestazione  9_led_blinking_usart2_tx_rx.o
-    0x08000fc6   0x08000fc6   0x00000002   PAD
-    0x08000fc8   0x08000fc8   0x00000028   Code   RO           47    i.__0sprintf        mc_w.l(printfa.o)
-    0x08000ff0   0x08000ff0   0x0000000e   Code   RO          120    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08000ffe   0x08000ffe   0x00000002   Code   RO          121    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08001000   0x08001000   0x0000000e   Code   RO          122    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0800100e   0x0800100e   0x00000002   PAD
-    0x08001010   0x08001010   0x00000184   Code   RO           52    i._fp_digits        mc_w.l(printfa.o)
-    0x08001194   0x08001194   0x000006dc   Code   RO           53    i._printf_core      mc_w.l(printfa.o)
-    0x08001870   0x08001870   0x00000024   Code   RO           54    i._printf_post_padding  mc_w.l(printfa.o)
-    0x08001894   0x08001894   0x0000002e   Code   RO           55    i._printf_pre_padding  mc_w.l(printfa.o)
-    0x080018c2   0x080018c2   0x0000000a   Code   RO           57    i._sputc            mc_w.l(printfa.o)
-    0x080018cc   0x080018cc   0x00000281   Data   RO           23    .rodata.str1.1      9_led_blinking_usart2_tx_rx.o
-    0x08001b4d   0x08001b4d   0x00000003   PAD
-    0x08001b50   0x08001b50   0x00000020   Data   RO          119    Region$$Table       anon$$obj.o
+    0x08000c70   0x08000c70   0x0000007a   Code   RO            4    .text.init          9_led_blinking_usart2_tx_rx.o
+    0x08000cea   0x08000cea   0x00000002   PAD
+    0x08000cec   0x08000cec   0x0000010e   Code   RO           16    .text.leggi_numero_hex  9_led_blinking_usart2_tx_rx.o
+    0x08000dfa   0x08000dfa   0x00000002   PAD
+    0x08000dfc   0x08000dfc   0x00000088   Code   RO            2    .text.main          9_led_blinking_usart2_tx_rx.o
+    0x08000e84   0x08000e84   0x00000030   Code   RO           14    .text.scrivi_char   9_led_blinking_usart2_tx_rx.o
+    0x08000eb4   0x08000eb4   0x00000024   Code   RO            6    .text.scrivi_stringa  9_led_blinking_usart2_tx_rx.o
+    0x08000ed8   0x08000ed8   0x00000062   Code   RO           20    .text.set_clock_16MHz  9_led_blinking_usart2_tx_rx.o
+    0x08000f3a   0x08000f3a   0x00000002   PAD
+    0x08000f3c   0x08000f3c   0x000000ba   Code   RO           18    .text.set_clock_80MHz  9_led_blinking_usart2_tx_rx.o
+    0x08000ff6   0x08000ff6   0x00000002   PAD
+    0x08000ff8   0x08000ff8   0x0000004a   Code   RO            8    .text.stampa_intestazione  9_led_blinking_usart2_tx_rx.o
+    0x08001042   0x08001042   0x00000002   PAD
+    0x08001044   0x08001044   0x00000028   Code   RO           49    i.__0sprintf        mc_w.l(printfa.o)
+    0x0800106c   0x0800106c   0x0000000e   Code   RO          122    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0800107a   0x0800107a   0x00000002   Code   RO          123    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0800107c   0x0800107c   0x0000000e   Code   RO          124    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0800108a   0x0800108a   0x00000002   PAD
+    0x0800108c   0x0800108c   0x00000184   Code   RO           54    i._fp_digits        mc_w.l(printfa.o)
+    0x08001210   0x08001210   0x000006dc   Code   RO           55    i._printf_core      mc_w.l(printfa.o)
+    0x080018ec   0x080018ec   0x00000024   Code   RO           56    i._printf_post_padding  mc_w.l(printfa.o)
+    0x08001910   0x08001910   0x0000002e   Code   RO           57    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x0800193e   0x0800193e   0x0000000a   Code   RO           59    i._sputc            mc_w.l(printfa.o)
+    0x08001948   0x08001948   0x00000255   Data   RO           24    .rodata.str1.1      9_led_blinking_usart2_tx_rx.o
+    0x08001b9d   0x08001b9d   0x00000003   PAD
+    0x08001ba0   0x08001ba0   0x00000020   Data   RO          121    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001b70, Size: 0x000004d0, Max: 0x00050000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08001bc0, Size: 0x000004d0, Max: 0x00050000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08001b70   0x00000004   Data   RW           22    .data.current_cpu_freq  9_led_blinking_usart2_tx_rx.o
-    0x20000004   0x08001b74   0x00000004   PAD
-    0x20000008        -       0x00000064   Zero   RW           25    .bss.buffer_invio   9_led_blinking_usart2_tx_rx.o
-    0x2000006c        -       0x00000064   Zero   RW           24    .bss.menu_buffer    9_led_blinking_usart2_tx_rx.o
-    0x200000d0        -       0x00000400   Zero   RW           32    STACK               startup_stm32f413xx.o
+    0x20000000   0x08001bc0   0x00000004   Data   RW           25    .data.current_cpu_freq  9_led_blinking_usart2_tx_rx.o
+    0x20000004   0x08001bc4   0x00000004   PAD
+    0x20000008        -       0x00000064   Zero   RW           27    .bss.buffer_invio   9_led_blinking_usart2_tx_rx.o
+    0x2000006c        -       0x00000064   Zero   RW           26    .bss.menu_buffer    9_led_blinking_usart2_tx_rx.o
+    0x200000d0        -       0x00000400   Zero   RW           34    STACK               startup_stm32f413xx.o
 
 
 ==============================================================================
@@ -530,13 +547,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      2164          0        641          4        200       3255   9_led_blinking_usart2_tx_rx.o
+      2284          0        597          4        200       3422   9_led_blinking_usart2_tx_rx.o
         28          4        472          0       1024        812   startup_stm32f413xx.o
 
     ----------------------------------------------------------------------
-      2204          4       1148          4       1228       4067   Object Totals
+      2328          4       1104          4       1228       4234   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        12          0          3          0          4          0   (incl. Padding)
+        16          0          3          0          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -587,15 +604,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5876        106       1148          4       1228       5059   Grand Totals
-      5876        106       1148          4       1228       5059   ELF Image Totals
-      5876        106       1148          4          0          0   ROM Totals
+      6000        106       1104          4       1228       5226   Grand Totals
+      6000        106       1104          4       1228       5226   ELF Image Totals
+      6000        106       1104          4          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 7024 (   6.86kB)
+    Total RO  Size (Code + RO Data)                 7104 (   6.94kB)
     Total RW  Size (RW Data + ZI Data)              1232 (   1.20kB)
-    Total ROM Size (Code + RO Data + RW Data)       7028 (   6.86kB)
+    Total ROM Size (Code + RO Data + RW Data)       7108 (   6.94kB)
 
 ==============================================================================
 

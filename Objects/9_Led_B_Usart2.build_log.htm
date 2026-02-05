@@ -27,41 +27,134 @@ Project File Date:  02/05/2026
 <h2>Output:</h2>
 *** Using Compiler 'V6.14.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-assembling startup_stm32f413xx.s...
 9_Led_Blinking_USART2_TX_RX.c(4): warning: In file included from...
 ./STM32F413XX.h(59): warning: no newline at end of file [-Wnewline-eof]
 #endif
       ^
-9_Led_Blinking_USART2_TX_RX.c(10): warning: 'GPIOA_PUPDR' macro redefined [-Wmacro-redefined]
-#define GPIOA_PUPDR  *(volatile long*)0x4002000C
+9_Led_Blinking_USART2_TX_RX.c(9): warning: 'CAN1_MCR' macro redefined [-Wmacro-redefined]
+#define CAN1_MCR     *(volatile long*)(CAN1_BASE + 0x00)
         ^
-./STM32F413XX.h(14): note: previous definition is here
-#define GPIOA_PUPDR    *(long*)0x4002000C 
+./STM32F413XX.h(31): note: previous definition is here
+#define CAN1_MCR     *(volatile long*)0x40006400
         ^
-9_Led_Blinking_USART2_TX_RX.c(14): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
-long current_cpu_freq = 16; 
-     ^
-9_Led_Blinking_USART2_TX_RX.c(14): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-long current_cpu_freq = 16; 
-^
-9_Led_Blinking_USART2_TX_RX.c(275): warning: no newline at end of file [-Wnewline-eof]
+9_Led_Blinking_USART2_TX_RX.c(10): warning: 'CAN1_MSR' macro redefined [-Wmacro-redefined]
+#define CAN1_MSR     *(volatile long*)(CAN1_BASE + 0x04)
+        ^
+./STM32F413XX.h(32): note: previous definition is here
+#define CAN1_MSR     *(volatile long*)0x40006404
+        ^
+9_Led_Blinking_USART2_TX_RX.c(11): warning: 'CAN1_TSR' macro redefined [-Wmacro-redefined]
+#define CAN1_TSR     *(volatile long*)(CAN1_BASE + 0x08)
+        ^
+./STM32F413XX.h(33): note: previous definition is here
+#define CAN1_TSR     *(volatile long*)0x40006408
+        ^
+9_Led_Blinking_USART2_TX_RX.c(12): warning: 'CAN1_RF0R' macro redefined [-Wmacro-redefined]
+#define CAN1_RF0R    *(volatile long*)(CAN1_BASE + 0x0C)
+        ^
+./STM32F413XX.h(34): note: previous definition is here
+#define CAN1_RF0R    *(volatile long*)0x4000640C
+        ^
+9_Led_Blinking_USART2_TX_RX.c(13): warning: 'CAN1_BTR' macro redefined [-Wmacro-redefined]
+#define CAN1_BTR     *(volatile long*)(CAN1_BASE + 0x1C)
+        ^
+./STM32F413XX.h(35): note: previous definition is here
+#define CAN1_BTR     *(volatile long*)0x4000641C
+        ^
+9_Led_Blinking_USART2_TX_RX.c(15): warning: 'CAN1_TI0R' macro redefined [-Wmacro-redefined]
+#define CAN1_TI0R    *(volatile long*)(CAN1_BASE + 0x180)
+        ^
+./STM32F413XX.h(38): note: previous definition is here
+#define CAN1_TI0R    *(volatile long*)0x40006580
+        ^
+9_Led_Blinking_USART2_TX_RX.c(16): warning: 'CAN1_TDT0R' macro redefined [-Wmacro-redefined]
+#define CAN1_TDT0R   *(volatile long*)(CAN1_BASE + 0x184)
+        ^
+./STM32F413XX.h(39): note: previous definition is here
+#define CAN1_TDT0R   *(volatile long*)0x40006584
+        ^
+9_Led_Blinking_USART2_TX_RX.c(17): warning: 'CAN1_TDL0R' macro redefined [-Wmacro-redefined]
+#define CAN1_TDL0R   *(volatile long*)(CAN1_BASE + 0x188)
+        ^
+./STM32F413XX.h(40): note: previous definition is here
+#define CAN1_TDL0R   *(volatile long*)0x40006588
+        ^
+9_Led_Blinking_USART2_TX_RX.c(18): warning: 'CAN1_TDH0R' macro redefined [-Wmacro-redefined]
+#define CAN1_TDH0R   *(volatile long*)(CAN1_BASE + 0x18C)
+        ^
+./STM32F413XX.h(41): note: previous definition is here
+#define CAN1_TDH0R   *(volatile long*)0x4000658C
+        ^
+9_Led_Blinking_USART2_TX_RX.c(19): warning: 'CAN1_RI0R' macro redefined [-Wmacro-redefined]
+#define CAN1_RI0R    *(volatile long*)(CAN1_BASE + 0x1B0)
+        ^
+./STM32F413XX.h(44): note: previous definition is here
+#define CAN1_RI0R    *(volatile long*)0x400065B0
+        ^
+9_Led_Blinking_USART2_TX_RX.c(20): warning: 'CAN1_RDT0R' macro redefined [-Wmacro-redefined]
+#define CAN1_RDT0R   *(volatile long*)(CAN1_BASE + 0x1B4)
+        ^
+./STM32F413XX.h(45): note: previous definition is here
+#define CAN1_RDT0R   *(volatile long*)0x400065B4
+        ^
+9_Led_Blinking_USART2_TX_RX.c(21): warning: 'CAN1_RDL0R' macro redefined [-Wmacro-redefined]
+#define CAN1_RDL0R   *(volatile long*)(CAN1_BASE + 0x1B8)
+        ^
+./STM32F413XX.h(46): note: previous definition is here
+#define CAN1_RDL0R   *(volatile long*)0x400065B8
+        ^
+9_Led_Blinking_USART2_TX_RX.c(22): warning: 'CAN1_RDH0R' macro redefined [-Wmacro-redefined]
+#define CAN1_RDH0R   *(volatile long*)(CAN1_BASE + 0x1BC)
+        ^
+./STM32F413XX.h(47): note: previous definition is here
+#define CAN1_RDH0R   *(volatile long*)0x400065BC
+        ^
+9_Led_Blinking_USART2_TX_RX.c(23): warning: 'CAN_FMR' macro redefined [-Wmacro-redefined]
+#define CAN_FMR      *(volatile long*)(CAN1_BASE + 0x200)
+        ^
+./STM32F413XX.h(50): note: previous definition is here
+#define CAN_FMR      *(volatile long*)0x40006600
+        ^
+9_Led_Blinking_USART2_TX_RX.c(24): warning: 'CAN_FM1R' macro redefined [-Wmacro-redefined]
+#define CAN_FM1R     *(volatile long*)(CAN1_BASE + 0x204)
+        ^
+./STM32F413XX.h(51): note: previous definition is here
+#define CAN_FM1R     *(volatile long*)0x40006604
+        ^
+9_Led_Blinking_USART2_TX_RX.c(25): warning: 'CAN_FS1R' macro redefined [-Wmacro-redefined]
+#define CAN_FS1R     *(volatile long*)(CAN1_BASE + 0x20C)
+        ^
+./STM32F413XX.h(52): note: previous definition is here
+#define CAN_FS1R     *(volatile long*)0x4000660C
+        ^
+9_Led_Blinking_USART2_TX_RX.c(26): warning: 'CAN_FA1R' macro redefined [-Wmacro-redefined]
+#define CAN_FA1R     *(volatile long*)(CAN1_BASE + 0x21C)
+        ^
+./STM32F413XX.h(53): note: previous definition is here
+#define CAN_FA1R     *(volatile long*)0x4000661C
+        ^
+9_Led_Blinking_USART2_TX_RX.c(27): warning: 'CAN_F0R1' macro redefined [-Wmacro-redefined]
+#define CAN_F0R1     *(volatile long*)(CAN1_BASE + 0x240)
+        ^
+./STM32F413XX.h(54): note: previous definition is here
+#define CAN_F0R1     *(volatile long*)0x40006640
+        ^
+9_Led_Blinking_USART2_TX_RX.c(28): warning: 'CAN_F0R2' macro redefined [-Wmacro-redefined]
+#define CAN_F0R2     *(volatile long*)(CAN1_BASE + 0x244)
+        ^
+./STM32F413XX.h(55): note: previous definition is here
+#define CAN_F0R2     *(volatile long*)0x40006644
+        ^
+9_Led_Blinking_USART2_TX_RX.c(320): warning: no newline at end of file [-Wnewline-eof]
 }
  ^
-9_Led_Blinking_USART2_TX_RX.c(139): warning: function 'Gestione_Sniffer_CAN' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
-{
-^
-9_Led_Blinking_USART2_TX_RX.c(15): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
-char menu_buffer[100];
-     ^
-9_Led_Blinking_USART2_TX_RX.c(15): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-char menu_buffer[100];
-^
-6 warnings generated.
+21 warnings generated.
 compiling 9_Led_Blinking_USART2_TX_RX.c...
+assembling startup_stm32f413xx.s...
 linking...
-Program Size: Code=5876 RO-data=1148 RW-data=4 ZI-data=1228  
+Program Size: Code=6000 RO-data=1104 RW-data=4 ZI-data=1228  
 FromELF: creating hex file...
-".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 6 Warning(s).
+".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 21 Warning(s).
 
 <h2>Software Packages used:</h2>
 
