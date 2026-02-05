@@ -4,6 +4,12 @@
 #include "STM32F413XX.h"
 
 
+// Per diagnostica pin GPIOA
+#ifndef GPIOA_IDR
+#define GPIOA_IDR    *(volatile long*)0x40020010
+#define GPIOA_PUPDR  *(volatile long*)0x4002000C
+#endif
+
 // --- VARIABILI GLOBALI ---
 long current_cpu_freq = 16; 
 char menu_buffer[100];
@@ -136,60 +142,53 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     long timeout = 0;
     long user_id, user_dlc, user_dataL, user_dataH;
 
-    // 1. CLOCK
-    // Abilito GPIOA (per USART1) e GPIOB (per CAN1 su PB8/9) e CAN1
-    RCC_AHB1ENR |= 0x00000003; // Bit 0 (GPIOA) | Bit 1 (GPIOB)
-    RCC_APB1ENR |= 0x02000000; // CAN1
+    // 1. CLOCK (GPIOA per UART, GPIOB per CAN, CAN1)
+    RCC_AHB1ENR |= 0x00000003; 
+    RCC_APB1ENR |= 0x02000000; 
 
     // 2. CONFIGURAZIONE GPIO SU PORTA B (PB8=RX, PB9=TX)
-    // Registro MODER: Imposto '10' (AF) su PB8 e PB9
-    // PB8 (bit 17:16), PB9 (bit 19:18)
-    // Maschera pulizia: 0x000F0000 (Pulisco i 4 bit)
     GPIOB_MODER &= ~0x000F0000; 
-    // Valore scrittura: 0x000A0000 (1010)
-    GPIOB_MODER |= 0x000A0000; 
+    GPIOB_MODER |= 0x000A0000; // AF Mode
 
-    // Registro AFRH: Imposto AF9 (CAN1) su PB8 e PB9
-    // PB8 è AFRH[3:0], PB9 è AFRH[7:4]
-    // Maschera pulizia: 0x000000FF
-    // Valore scrittura: 0x00000099 (9 su entrambi)
+    // --- RITORNO AD AF9 (0x99) - CORRETTO PER F413 ---
     GPIOB_AFRH &= ~0x000000FF;
-    GPIOB_AFRH |= 0x00000099;  
+    GPIOB_AFRH |= 0x00000099;  // AF9 (CAN1)
 
-    // Disattivo Pull-Up su PB8/PB9 (gestito dal transceiver)
+    // ATTIVO PULL-UP INTERNO SU PB8 (RX) PER SICUREZZA
+    // Se il transceiver non spinge bene a 3.3V, questo aiuta l'Init a passare.
+    // Maschera: 0x000F0000. Scrittura: 0x00010000 (01 su bit 17:16)
     GPIOB_PUPDR &= ~0x000F0000;
+    GPIOB_PUPDR |= 0x00010000;
 
-    scrivi_stringa("\r\n--- SNIFFER CAN (PB8/PB9 MAPPING) ---\r\n");
+    scrivi_stringa("\r\n--- SNIFFER CAN (PB8/PB9 - AF9) ---\r\n");
 
-    // Check diagnostico Transceiver su PB8
-    long pin_rx_val = (GPIOB_IDR & (1 << 8)); // Controllo PB8
+    // DIAGNOSTICA REALE
+    long pin_rx_val = (GPIOB_IDR & (1 << 8)); 
     if(pin_rx_val) {
-        scrivi_stringa("[HW CHECK] Pin RX (PB8) e' ALTO. Transceiver OK.\r\n");
+        scrivi_stringa("[HW CHECK] Pin PB8 letto come ALTO (1). Hardware OK.\r\n");
     } else {
-        scrivi_stringa("[HW CHECK] Pin RX (PB8) e' BASSO. Bus Dominante o Transceiver KO.\r\n");
+        scrivi_stringa("[HW CHECK] Pin PB8 letto come BASSO (0). \r\n");
+        scrivi_stringa("ATTENZIONE: Se hai fatto il corto, DEVI leggere ALTO qui.\r\n");
     }
 
     // --- SEQUENZA DI INIT ---
     
-    CAN1_MCR |= 0x00008000; // Reset
+    // Reset e Uscita Sleep Atomica
+    CAN1_MCR |= 0x00008000; 
     while(CAN1_MCR & 0x00008000); 
-
-    // Sleep OFF, Init ON
     CAN1_MCR = 0x00000001; 
 
+    // Attesa INAK=1
     timeout = 0;
     while((CAN1_MSR & 0x00000001) == 0) {
-        timeout++;
-        if(timeout > 1000000) {
+        if(timeout++ > 1000000) {
             scrivi_stringa("ERRORE CRITICO: INRQ bloccato.\r\n");
             break;
         }
     }
 
-    if(cpu_freq > 40000000) 
-        CAN1_BTR = 0x003E0003; 
-    else 
-        CAN1_BTR = 0x002B0001; 
+    if(cpu_freq > 40000000) CAN1_BTR = 0x003E0003; 
+    else CAN1_BTR = 0x002B0001; 
 
     // Filtri
     CAN_FMR |= 1;    
@@ -204,6 +203,7 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     // AVVIO
     CAN1_MCR &= ~0x00000001; 
     
+    // Attesa Sync (INAK -> 0)
     timeout = 0;
     while(CAN1_MSR & 0x00000001) 
     {
@@ -212,11 +212,12 @@ void Gestione_Sniffer_CAN(long cpu_freq)
         {
             scrivi_stringa("ERRORE: Init Failed (INAK=1).\r\n");
             scrivi_stringa("Il CAN non sente il bus libero su PB8.\r\n");
+            // Se qui fallisce anche col corto, controlla il [HW CHECK] sopra.
             break; 
         }
     }
 
-    if(timeout <= 8000000) scrivi_stringa("CAN Avviato su PB8/PB9. 't' per invio.\r\n");
+    if(timeout <= 8000000) scrivi_stringa("CAN Avviato correttamente.\r\n");
 
     while(1) 
     {
@@ -247,18 +248,14 @@ void Gestione_Sniffer_CAN(long cpu_freq)
             carattere_rx = (char)USART1_DR;
             if(carattere_rx == 't' || carattere_rx == 'T') 
             {
-                scrivi_stringa("\r\n--- INVIO MANUALE ---\r\n");
-                
+                scrivi_stringa("\r\n--- INVIO ---\r\n");
                 scrivi_stringa("ID Hex: ");
                 user_id = leggi_numero_hex();
-                
                 scrivi_stringa("DLC: ");
                 user_dlc = leggi_numero_hex();
                 if(user_dlc > 8) user_dlc = 8;
-
                 scrivi_stringa("Data L: ");
                 user_dataL = leggi_numero_hex();
-
                 scrivi_stringa("Data H: ");
                 user_dataH = leggi_numero_hex();
 

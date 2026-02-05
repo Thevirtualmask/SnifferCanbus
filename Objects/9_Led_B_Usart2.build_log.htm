@@ -26,11 +26,42 @@ Project File Date:  02/05/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.14.1', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
+assembling startup_stm32f413xx.s...
+9_Led_Blinking_USART2_TX_RX.c(4): warning: In file included from...
+./STM32F413XX.h(59): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+9_Led_Blinking_USART2_TX_RX.c(10): warning: 'GPIOA_PUPDR' macro redefined [-Wmacro-redefined]
+#define GPIOA_PUPDR  *(volatile long*)0x4002000C
+        ^
+./STM32F413XX.h(14): note: previous definition is here
+#define GPIOA_PUPDR    *(long*)0x4002000C 
+        ^
+9_Led_Blinking_USART2_TX_RX.c(14): warning: no previous extern declaration for non-static variable 'current_cpu_freq' [-Wmissing-variable-declarations]
+long current_cpu_freq = 16; 
+     ^
+9_Led_Blinking_USART2_TX_RX.c(14): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+long current_cpu_freq = 16; 
+^
+9_Led_Blinking_USART2_TX_RX.c(275): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+9_Led_Blinking_USART2_TX_RX.c(139): warning: function 'Gestione_Sniffer_CAN' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+9_Led_Blinking_USART2_TX_RX.c(15): warning: no previous extern declaration for non-static variable 'menu_buffer' [-Wmissing-variable-declarations]
+char menu_buffer[100];
+     ^
+9_Led_Blinking_USART2_TX_RX.c(15): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+char menu_buffer[100];
+^
+6 warnings generated.
+compiling 9_Led_Blinking_USART2_TX_RX.c...
 linking...
-Program Size: Code=5860 RO-data=1128 RW-data=4 ZI-data=1228  
+Program Size: Code=5876 RO-data=1148 RW-data=4 ZI-data=1228  
 FromELF: creating hex file...
-".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 0 Warning(s).
+".\Objects\9_Led_B_Usart2.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
