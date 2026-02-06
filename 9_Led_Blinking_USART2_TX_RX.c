@@ -3,44 +3,11 @@
 #include <stdint.h>
 #include "STM32F413XX.h" 
 
-// --- DEFINIZIONI REGISTRI (Volatile) ---
-#ifndef CAN1_BASE
-#define CAN1_BASE    0x40006400
-#define CAN1_MCR     *(volatile long*)(CAN1_BASE + 0x00)
-#define CAN1_MSR     *(volatile long*)(CAN1_BASE + 0x04)
-#define CAN1_TSR     *(volatile long*)(CAN1_BASE + 0x08)
-#define CAN1_RF0R    *(volatile long*)(CAN1_BASE + 0x0C)
-#define CAN1_BTR     *(volatile long*)(CAN1_BASE + 0x1C)
-#define CAN1_ESR     *(volatile long*)(CAN1_BASE + 0x18) 
-#define CAN1_TI0R    *(volatile long*)(CAN1_BASE + 0x180)
-#define CAN1_TDT0R   *(volatile long*)(CAN1_BASE + 0x184)
-#define CAN1_TDL0R   *(volatile long*)(CAN1_BASE + 0x188)
-#define CAN1_TDH0R   *(volatile long*)(CAN1_BASE + 0x18C)
-#define CAN1_RI0R    *(volatile long*)(CAN1_BASE + 0x1B0)
-#define CAN1_RDT0R   *(volatile long*)(CAN1_BASE + 0x1B4)
-#define CAN1_RDL0R   *(volatile long*)(CAN1_BASE + 0x1B8)
-#define CAN1_RDH0R   *(volatile long*)(CAN1_BASE + 0x1BC)
-#define CAN_FMR      *(volatile long*)(CAN1_BASE + 0x200)
-#define CAN_FM1R     *(volatile long*)(CAN1_BASE + 0x204)
-#define CAN_FS1R     *(volatile long*)(CAN1_BASE + 0x20C)
-#define CAN_FA1R     *(volatile long*)(CAN1_BASE + 0x21C)
-#define CAN_F0R1     *(volatile long*)(CAN1_BASE + 0x240)
-#define CAN_F0R2     *(volatile long*)(CAN1_BASE + 0x244)
-#endif
-
-// GPIO Indirizzi Puri
-#define RCC_AHB1ENR_RAW  *(volatile long*)0x40023830
-#define RCC_APB1ENR_RAW  *(volatile long*)0x40023840
-#define GPIOB_MODER_RAW  *(volatile long*)0x40020400
-#define GPIOB_AFRH_RAW   *(volatile long*)0x40020424
-#define GPIOB_IDR_RAW    *(volatile long*)0x40020410
-#define GPIOB_PUPDR_RAW  *(volatile long*)0x4002040C
-
 static long current_cpu_freq = 16; 
 static char menu_buffer[100];
 static char buffer_invio[100];
 
-// PROTOTIPI
+//prototipi
 void init(void);
 void scrivi_char(char c);
 void scrivi_stringa(char* str);
@@ -159,7 +126,7 @@ void gestisci_menu_frequenza(void) {
     }
 }
 
-// Funzione DEBUG robusta
+//debug
 void Dump_Registri_CAN(void) {
     scrivi_stringa("\r\n--- DUMP REGISTRI ---\r\n");
     sprintf(menu_buffer, "MCR: %08X\r\n", (unsigned int)CAN1_MCR); scrivi_stringa(menu_buffer);
@@ -180,21 +147,21 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     long timeout;
 
     // 1. CLOCK (Abilito e aspetto)
-    RCC_AHB1ENR_RAW |= 0x00000003; // GPIOA, GPIOB
-    RCC_APB1ENR_RAW |= 0x02000000; // CAN1
+    RCC_AHB1ENR |= 0x00000003; // GPIOA, GPIOB
+    RCC_APB1ENR |= 0x02000000; // CAN1
     
     for(int i=0; i<10000; i++); 
 
     // 2. GPIO PB8/PB9 Setup
-    GPIOB_MODER_RAW &= ~0x000F0000; 
-    GPIOB_MODER_RAW |= 0x000A0000; // AF Mode
+    GPIOB_MODER &= ~0x000F0000; 
+    GPIOB_MODER |= 0x000A0000; // AF Mode
     
     // --- CORREZIONE: AF8 (0x88) per PB8/PB9 su F413 ---
-    GPIOB_AFRH_RAW &= ~0x000000FF;
-    GPIOB_AFRH_RAW |= 0x00000088;  // AF8 (CAN1)
+    GPIOB_AFRH &= ~0x000000FF;
+    GPIOB_AFRH |= 0x00000088;  // AF8 (CAN1)
 
     // PullUp disabilitati (uso Transceiver)
-    GPIOB_PUPDR_RAW &= ~0x000F0000; 
+    GPIOB_PUPDR &= ~0x000F0000; 
 
     scrivi_stringa("\r\n--- CAN CONFIG AF8 (PB8/PB9) ---\r\n");
 
