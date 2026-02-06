@@ -217,27 +217,29 @@ void Gestione_Sniffer_CAN(long cpu_freq)
     // --- CONFIGURAZIONE TIMING ---
     // Target: 500 kbit/s
     
+   // --- CONFIGURAZIONE TIMING CON OPZIONE LOOPBACK ---
+    scrivi_stringa("\r\nAttivare Loopback Mode per test interno? (s/n): ");
+    while(!(USART1_SR & 0x00000020));
+    char lb_choice = (char)USART1_DR;
+
     if(cpu_freq > 40000000) 
     {
         // CASO 80 MHz -> APB1 = 40 MHz
-        // 40.000.000 / 500.000 = 80 TQ
-        // Prescaler = 4 (Reg=3) -> 20 TQ/bit
-        // TS1=15, TS2=4 -> 1+15+4 = 20 TQ
-        // Reg: SJW=0, TS2=3, TS1=14, BRP=3
         CAN1_BTR = 0x003E0003; 
-        scrivi_stringa("Mode: 40MHz APB1 (80MHz CPU)\r\n");
+        if(lb_choice == 's' || lb_choice == 'S') CAN1_BTR |= 0x40000000; 
+        scrivi_stringa("\r\nMode: 40MHz APB1 (80MHz CPU)");
     } 
     else 
     {
         // CASO 16 MHz -> APB1 = 16 MHz
-        // 16.000.000 / 500.000 = 32 TQ
-        // Prescaler = 2 (Reg=1) -> 16 TQ/bit
-        // TS1=12, TS2=3 -> 1+12+3 = 16 TQ
-        // Reg: SJW=0, TS2=2, TS1=11, BRP=1
         CAN1_BTR = 0x002B0001;
-        scrivi_stringa("Mode: 16MHz APB1 (16MHz CPU)\r\n");
+        if(lb_choice == 's' || lb_choice == 'S') CAN1_BTR |= 0x40000000; 
+        scrivi_stringa("\r\nMode: 16MHz APB1 (16MHz CPU)");
     }
 
+    if(lb_choice == 's' || lb_choice == 'S') scrivi_stringa(" [LOOPBACK ATTIVO]\r\n");
+    else scrivi_stringa(" [NORMAL MODE]\r\n");
+		
     // Filtri
     CAN_FMR |= 1;    
     CAN_FA1R &= ~1;  
