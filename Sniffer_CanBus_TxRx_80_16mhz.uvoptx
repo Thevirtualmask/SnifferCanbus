@@ -233,11 +233,11 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>1</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\9_Led_Blinking_USART2_TX_RX.c</PathWithFileName>
-      <FilenameWithoutPath>9_Led_Blinking_USART2_TX_RX.c</FilenameWithoutPath>
+      <PathWithFileName>.\Sniffer_CanBus_TxRx_80_16mhz.c</PathWithFileName>
+      <FilenameWithoutPath>Sniffer_CanBus_TxRx_80_16mhz.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

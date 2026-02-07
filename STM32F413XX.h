@@ -12,7 +12,7 @@
 
 #define GPIOA_MODER    *(long*)0x40020000 
 #define GPIOA_PUPDR    *(long*)0x4002000C  //gestisce resistenze di pu e pd (off)
-#define GPIOA_AFRH     *(long*)0x40020024 //alternate functions high
+#define GPIOA_AFRH     *(long*)0x40020024 //af high
 
 #define GPIOB_MODER  *(volatile long*)0x40020400
 #define GPIOB_PUPDR  *(volatile long*)0x4002040C
@@ -24,9 +24,8 @@
 #define USART1_BRR     *(long*)0x40011008 
 #define USART1_CR1     *(long*)0x4001100C //controlla trasm, ric e periferica
 
-#define FLASH_ACR      *(long*)0x40023C00 
+#define FLASH_ACR      *(long*)0x40023C00 //per i wait states
 #define PWR_CR         *(long*)0x40007000
-#define CPACR          *(long*)0xE000ED88
 
 #define CAN1_BASE    0x40006400 //boundary
 #define CAN1_ESR     *(volatile long*)(CAN1_BASE + 0x18) //debug (ACK, esempio)
@@ -34,7 +33,7 @@
 #define CAN1_MSR     *(volatile long*)0x40006404 //entrata o uscita da init
 #define CAN1_TSR     *(volatile long*)0x40006408 //successo tx
 #define CAN1_RF0R    *(volatile long*)0x4000640C //gestisce messaggi in coda 
-#define CAN1_BTR     *(volatile long*)0x4000641C //durata bit, attivazione loopback
+#define CAN1_BTR     *(volatile long*)0x4000641C //durata bit, attivazione loopback, baudrate
 
 //TX 
 #define CAN1_TI0R    *(volatile long*)0x40006580 //manda mssg
