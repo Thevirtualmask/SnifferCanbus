@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\9_Led_B_Usart2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\9_Led_B_Usart2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Wed Feb  4 20:41:37 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140101: Last Updated: Sat Feb  7 15:42:05 2026
 <BR><P>
-<H3>Maximum Stack Usage =         64 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        172 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; stampa_intestazione &rArr; sprintf
+main &rArr; Gestione_Sniffer_CAN &rArr; leggi_numero_hex &rArr; scrivi_stringa &rArr; scrivi_char
 <P>
 <H3>
 Mutually Recursive functions
@@ -134,7 +134,7 @@ Function Pointers
  <LI><a href="#[a]">WWDG_IRQHandler</a> from startup_stm32f413xx.o(.text) referenced from startup_stm32f413xx.o(RESET)
  <LI><a href="#[6b]">__main</a> from entry.o(.ARM.Collect$$$$00000000) referenced from startup_stm32f413xx.o(.text)
  <LI><a href="#[6c]">_sputc</a> from printfa.o(i._sputc) referenced from printfa.o(i.__0sprintf)
- <LI><a href="#[6a]">main</a> from 9_led_blinking_usart2_tx_rx.o(.text.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
+ <LI><a href="#[6a]">main</a> from sniffer_canbus_txrx_80_16mhz.o(.text.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
 <P>
 <H3>
@@ -625,80 +625,83 @@ Global Symbols
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 
-<P><STRONG><a name="[7c]"></a>funzione_can_receive_sim</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, functions.o(.text.funzione_can_receive_sim))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = funzione_can_receive_sim &rArr; scrivi_stringa &rArr; scrivi_char
+<P><STRONG><a name="[7c]"></a>Gestione_Sniffer_CAN</STRONG> (Thumb, 1146 bytes, Stack size 80 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.Gestione_Sniffer_CAN))
+<BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = Gestione_Sniffer_CAN &rArr; leggi_numero_hex &rArr; scrivi_stringa &rArr; scrivi_char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
-</UL>
-<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[7e]"></a>funzione_can_transmit_sim</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, functions.o(.text.funzione_can_transmit_sim))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = funzione_can_transmit_sim &rArr; scrivi_stringa &rArr; scrivi_char
-</UL>
-<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sprintf
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leggi_numero_hex
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7f]"></a>gestisci_menu_frequenza</STRONG> (Thumb, 276 bytes, Stack size 16 bytes, 9_led_blinking_usart2_tx_rx.o(.text.gestisci_menu_frequenza))
+<P><STRONG><a name="[80]"></a>gestisci_menu_frequenza</STRONG> (Thumb, 170 bytes, Stack size 16 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.gestisci_menu_frequenza))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = gestisci_menu_frequenza &rArr; scrivi_stringa &rArr; scrivi_char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_16MHz
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_100MHz
+<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_80MHz
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_clock_16MHz
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[82]"></a>init</STRONG> (Thumb, 166 bytes, Stack size 0 bytes, functions.o(.text.init))
+<P><STRONG><a name="[84]"></a>init</STRONG> (Thumb, 122 bytes, Stack size 0 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.init))
 <BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6a]"></a>main</STRONG> (Thumb, 142 bytes, Stack size 24 bytes, 9_led_blinking_usart2_tx_rx.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = main &rArr; stampa_intestazione &rArr; sprintf
+<P><STRONG><a name="[7f]"></a>leggi_numero_hex</STRONG> (Thumb, 270 bytes, Stack size 48 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.leggi_numero_hex))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = leggi_numero_hex &rArr; scrivi_stringa &rArr; scrivi_char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stampa_intestazione
+<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_char
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gestione_Sniffer_CAN
+</UL>
+
+<P><STRONG><a name="[6a]"></a>main</STRONG> (Thumb, 136 bytes, Stack size 24 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = main &rArr; Gestione_Sniffer_CAN &rArr; leggi_numero_hex &rArr; scrivi_stringa &rArr; scrivi_char
+</UL>
+<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stampa_intestazione
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
-<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funzione_can_transmit_sim
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funzione_can_receive_sim
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gestione_Sniffer_CAN
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[84]"></a>scrivi_char</STRONG> (Thumb, 48 bytes, Stack size 4 bytes, functions.o(.text.scrivi_char))
+<P><STRONG><a name="[83]"></a>scrivi_char</STRONG> (Thumb, 48 bytes, Stack size 4 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.scrivi_char))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = scrivi_char
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leggi_numero_hex
 </UL>
 
-<P><STRONG><a name="[7d]"></a>scrivi_stringa</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, functions.o(.text.scrivi_stringa))
+<P><STRONG><a name="[7d]"></a>scrivi_stringa</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.scrivi_stringa))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = scrivi_stringa &rArr; scrivi_char
 </UL>
-<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_char
+<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_char
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stampa_intestazione
+<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stampa_intestazione
 <LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funzione_can_transmit_sim
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;funzione_can_receive_sim
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;leggi_numero_hex
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gestione_Sniffer_CAN
 </UL>
 
-<P><STRONG><a name="[81]"></a>set_clock_100MHz</STRONG> (Thumb, 204 bytes, Stack size 4 bytes, functions.o(.text.set_clock_100MHz))
-<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = set_clock_100MHz
-</UL>
-<BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
+<P><STRONG><a name="[81]"></a>set_clock_16MHz</STRONG> (Thumb, 98 bytes, Stack size 0 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.set_clock_16MHz))
+<BR><BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
 </UL>
 
-<P><STRONG><a name="[80]"></a>set_clock_16MHz</STRONG> (Thumb, 124 bytes, Stack size 0 bytes, functions.o(.text.set_clock_16MHz))
-<BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
+<P><STRONG><a name="[82]"></a>set_clock_80MHz</STRONG> (Thumb, 186 bytes, Stack size 4 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.set_clock_80MHz))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = set_clock_80MHz
+</UL>
+<BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gestisci_menu_frequenza
 </UL>
 
-<P><STRONG><a name="[83]"></a>stampa_intestazione</STRONG> (Thumb, 110 bytes, Stack size 16 bytes, 9_led_blinking_usart2_tx_rx.o(.text.stampa_intestazione))
+<P><STRONG><a name="[85]"></a>stampa_intestazione</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, sniffer_canbus_txrx_80_16mhz.o(.text.stampa_intestazione))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = stampa_intestazione &rArr; sprintf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sprintf
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sprintf
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scrivi_stringa
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -715,10 +718,11 @@ Global Symbols
 
 <P><STRONG><a name="[9b]"></a>__c89sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf), UNUSED)
 
-<P><STRONG><a name="[85]"></a>sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf))
+<P><STRONG><a name="[7e]"></a>sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printfa.o(i.__0sprintf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stampa_intestazione
+<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stampa_intestazione
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gestione_Sniffer_CAN
 </UL>
 
 <P><STRONG><a name="[9c]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)

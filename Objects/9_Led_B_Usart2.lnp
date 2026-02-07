@@ -1,6 +1,5 @@
 --cpu=Cortex-M4.fp.sp
-".\objects\9_led_blinking_usart2_tx_rx.o"
-".\objects\functions.o"
+".\objects\sniffer_canbus_txrx_80_16mhz.o"
 ".\objects\startup_stm32f413xx.o"
 --library_type=microlib --strict --scatter ".\Objects\9_Led_B_Usart2.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
